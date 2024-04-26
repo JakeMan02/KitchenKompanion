@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List App</title>
+    <link rel="stylesheet" href="./CSS/shoppingList.css">
+</head>
+<body>
+    <div id="header">
+        <button onclick="menu()"><img src="./images/menu-icon.png" id="menu"></button>
+        <h1>Shopping List</h1>
+        <a href="home.html"><img src="./images/home-icon.png" id="profile" height="50px"></a>
+    </div>
+    <div id="tabs">
+        <a href="./home.html">Home</a>
+        <a href="./inventory.html">Kitchen Inventory</a>
+        <a href="./recipes.html">Recipes</a>
+        <a href="./expiringItems.html">Expiring Items</a>
+        <a href="./timer.html">Timer</a>
+        <a href="./profiles.html">Profiles</a>
+    </div>
+
+
+    <img id="keyboard" src="./images/keyboard.jpeg" alt="Keyboard"  style="display: none" >
+    <div id="app-container" class="app-container">
+        <main>
+            <section id="dairy-and-eggs" class="category">
+                <h2>Dairy and Eggs</h2>
+                <ul></ul>
+            </section>
+            <section id="meats-protein" class="category">
+                <h2>Meats/Protein</h2>
+                <ul></ul>
+            </section>
+            <section id="produce" class="category">
+                <h2>Produce</h2>
+                <ul></ul>
+            </section>
+
+            <div id="section-container">
+              <!-- Existing and newly added sections will be loaded here -->
+            </div>
+            
+            <!-- Inline form for new section, initially hidden -->
+            <div id="new-section-form-container" style="display: none;">
+              <form id="new-section-form">
+                <input type="text" id="new-section-name" placeholder="New section name" required />
+                <button type="button" onclick="addNewSection()">Add Section</button>
+              </form>
+            </div>
+            
+            <button id="add-section-btn">+ Add Section</button>
+            <button id="add-item-btn" onclick="location.href='newItem.html'">+ Add Item</button>
+            <button id="add-item-btn">+ Add Selected Item(s) to Inventory (STUB - NOT implemented) </button>
+        </main>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    loadItemsFromLocalStorage();
+   
+});
+
+function loadItemsFromLocalStorage() {
+    const shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || {};
+    for (const [category, items] of Object.entries(shoppingList)) {
+        const section = document.getElementById(category);
+        
+        items.forEach(itemName => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <input type="checkbox" class="select-item"> <!-- Initially unchecked -->
+                <span class="item-name">${itemName}</span>
+                <button class="delete-btn" onclick="deleteItem('${category}', '${itemName}')">X</button>
+            `;
+            
+        });
+    }
+
+    attachEventListeners();
+}
+
+// This function sets up event delegation on the container holding the items
+function attachEventListeners() {
+    const appContainer = document.getElementById('app-container');
+    appContainer.addEventListener('click', function(event) {
+        if (event.target.classList.contains('select-item') || event.target.classList.contains('item-name')) {
+            toggleStrikethrough(event);
+        }
+    });
+}
+
+// Call this function once when the page is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    loadItemsFromLocalStorage();
+    attachEventListeners();
+});
+
+
+
+function toggleStrikethrough(event) {
+    const target = event.target;
+    let checkbox, itemNameElement;
+
+    if (target.classList.contains('select-item')) {
+        checkbox = target;
+        itemNameElement = target.nextElementSibling;
+    } else if (target.classList.contains('item-name')) {
+        itemNameElement = target;
+        checkbox = target.previousElementSibling;
+    }
+
+    if (itemNameElement && checkbox) {
+        // Toggle the checked state of the checkbox if the item name was clicked.
+        if (target === itemNameElement) {
+            checkbox.checked = !checkbox.checked;
+        }
+        // Apply or remove the strikethrough class based on the checkbox's checked state.
+        itemNameElement.classList.toggle('strikethrough', checkbox.checked);
+    }
+}
+
+
+
+
+function strikeThroughItem(event) {
+    const itemNameElement = event.target;
+    const checkbox = itemNameElement.previousElementSibling;
+    if(checkbox) {
+        checkbox.checked = !checkbox.checked;
+        itemNameElement.classList.toggle('strikethrough', !checkbox.checked);
+    }
+}
+
+
+function deleteItem(category, itemName) {
+    let shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || {};
+    shoppingList[category] = shoppingList[category].filter(item => item !== itemName);
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+    location.reload(); // Reload to update the list on the page
+}
+
+function addSelectedItemsToInventory() {
+    // Logic to add selected items to the inventory
+}
+
+
+document.getElementById('add-section-btn').addEventListener('click', function() {
+    // Show the form when the add section button is clicked
+    document.getElementById('new-section-form-container').style.display = 'block';
+});
+
+function addNewSection() {
+    const sectionNameInput = document.getElementById('new-section-name');
+    const sectionName = sectionNameInput.value.trim();
+    if (!sectionName) {
+        alert('Please enter a section name.');
+        return;
+    }
+    
+    const sectionId = sectionName.toLowerCase().replace(/\s+/g, '-');
+    // Check if the section already exists to avoid duplicates
+    if (!localStorage.getItem('sections') || !JSON.parse(localStorage.getItem('sections'))[sectionId]) {
+        // Insert new section in the container
+        const sectionContainer = document.getElementById('section-container');
+        const newSection = document.createElement('div');
+        newSection.id = sectionId;
+        newSection.className = 'category'; // Add class for styling and consistency
+        newSection.innerHTML = `<h2>${sectionName}</h2><ul></ul>`; // Include a UL element for items
+        sectionContainer.insertBefore(newSection, sectionContainer.firstChild); // insert at the top
+        
+        // Save to localStorage
+        saveSectionInLocalStorage(sectionId, sectionName);
+        
+    } else {
+        alert('This section already exists.');
+    }
+    
+    sectionNameInput.value = ''; // Clear the input field
+    document.getElementById('new-section-form-container').style.display = 'none'; // Hide the form
+    populateItemTypeDropdown();
+}
+
+
+function saveSectionInLocalStorage(sectionId, sectionName) {
+    let sections = JSON.parse(localStorage.getItem('sections')) || {};
+    sections[sectionId] = sectionName;
+    localStorage.setItem('sections', JSON.stringify(sections));
+}
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadSectionsAndItemsFromLocalStorage();
+    attachEventListeners();
+});
+
+function loadSectionsAndItemsFromLocalStorage() {
+    // Load sections from localStorage
+    const sections = JSON.parse(localStorage.getItem('sections')) || {};
+    Object.entries(sections).forEach(([sectionId, sectionName]) => {
+        createOrGetSection(sectionId, sectionName);
+    });
+
+    // Load items into sections
+    const shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || {};
+    for (const [category, items] of Object.entries(shoppingList)) {
+        const section = document.getElementById(category);
+        const ul = section.querySelector('ul');
+        ul.innerHTML = ''; // Clear existing items to avoid duplicates
+        items.forEach(itemName => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <input type="checkbox" class="select-item">
+                <span class="item-name">${itemName}</span>
+                <button class="delete-btn" onclick="deleteItem('${category}', '${itemName}')">X</button>
+            `;
+            ul.appendChild(li);
+        });
+    }
+    attachEventListeners();
+}
+
+function createOrGetSection(sectionId, sectionName) {
+    let section = document.getElementById(sectionId);
+    if (!section) {
+        section = document.createElement('section');
+        section.id = sectionId;
+        section.className = 'category';
+        section.innerHTML = `<h2>${sectionName}</h2><ul></ul>`;
+        document.getElementById('section-container').appendChild(section);
+    }
+    return section;
+}
+
+
+
+
+
+
+            function showKeyboard() {
+                console.log('showKeyboard was called'); // For debugging purposes
+                document.getElementById('keyboard').style.display = 'block';
+                document.body.style.marginBottom = '600px'; // Adjust if needed
+            }
+        
+            function hideKeyboard() {
+                document.getElementById('keyboard').style.display = 'none';
+                document.body.style.marginBottom = '0';
+            }
+            
+// Event listeners for the input fi
+document.getElementById('new-section-name').addEventListener('focus', showKeyboard);
+document.getElementById('new-section-name').addEventListener('blur', hideKeyboard);
+        
+// Function for the menu (if required)
+    function menu() {
+        var menuTabs = document.getElementById("tabs");
+        var pageAnchors = document.getElementById("app-container");
+        if (menuTabs.style.display == "block") {
+            menuTabs.style.display = "none";
+            pageAnchors.style.pointerEvents = "auto";
+        } else {
+            menuTabs.style.display = "block";
+            pageAnchors.style.pointerEvents = "none";
+        }
+    }
+
+
+
+
+
+</script>
+</body>
+</html>

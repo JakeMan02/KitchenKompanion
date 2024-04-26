@@ -1,0 +1,104 @@
+/* Set height of body and the document to 640x960px to fit mobile device */
+body, html {
+    max-height: 960px;
+    max-width: 640px;
+    font-family: Arial;
+    position: fixed;
+    margin: 0 0 0 0;
+    background-color: white;
+}
+
+.app-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    /* background-color: #fff; */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: 18px;
+}
+
+#header {
+    width: 100%;
+    height: 120px;
+    display: inline-grid;
+    align-items: center;
+    grid-template-columns: 70px 500px 70px;
+    text-align: center;
+    background-color: #a251ff;
+    color: white;
+    box-shadow: lightslategrey 0px 0px 10px;
+    position: sticky;
+    top: 0px;
+    z-index: 2;
+}
+
+#header button {
+    color: white;
+    background-color: #a251ff;
+    border: 0;
+}
+
+#header h1 {
+    font-size: 45px;
+}
+
+#tabs {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 2;
+    position: fixed;
+    width: 50%;
+    height: 840px;
+}
+
+#tabs a {
+    width: 100%;
+    color: white;
+    font-size: 20px;
+    display: block;
+    font-size: 25px;
+    text-align: left;
+    text-decoration: none;
+    padding: 25px 15px;
+    opacity: 1;
+}
+
+.menu-btn, .home-btn {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+  
+
+
+/* h1 {
+    color: #333;
+} */
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Style the profile image */
+/* #profile {
+    width: 45px;
+    height: 50px;
+} */
+
+/* #menu {
+    width: 30px; /* Size of the menu icon 
+    height: auto;
+} */
+
+.menu-icon, .home-icon {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 24px;
+    cursor: pointer;
+}

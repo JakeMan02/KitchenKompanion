@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Profile</title>
+        <link rel="stylesheet" href="./CSS/profiles.css">
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    </head>
+    <body>
+        <div id="header">
+            <button onclick="menu()"><img src="./images/menu-icon.png" id="menu"></button>
+            <h1>Profile</h1>
+            <a href="home.html"><img src="./images/home-icon.png" id="profile" height="50px"></a>
+        </div>
+
+        <div id="tabs">
+            <a href="./home.html">Home</a>
+            <a href="./inventory.html">Kitchen Inventory</a>
+            <a href="./shoppingList.html">Shopping List</a>
+            <a href="./recipes.html">Recipes</a>
+            <a href="./expiringItems.html">Expiring Items</a>
+            <a href="./timer.html">Timer</a>
+        </div>
+
+        <div id="profilePhoto">
+            <img class="profile-pic" src="./images/profile-circle-icon.png" alt="image not found">
+        </div>
+
+        <div id="profileInfo">
+            <form id="profileForm">
+                <input type="text" id="name" name="name" placeholder="Name" required>
+                <input type="email" id="email" name="email" placeholder="Email">
+                <br>
+                <select name="age" id="age">
+                    <option value="placeholder" selected>Select Age</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">25</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                    <option value="32">32</option>
+                    <option value="33">33</option>
+                    <option value="34">34</option>
+                    <option value="35">35</option>
+                    <option value="36">36</option>  
+                    <option value="37">37</option>
+                    <option value="38">38</option>
+                    <option value="39">39</option>
+                    <option value="40">40</option>
+                    <option value="41">41</option>
+                    <option value="42">42</option>
+                    <option value="43">43</option>
+                    <option value="44">44</option>
+                    <option value="45">45</option>
+                    <option value="46">46</option>
+                    <option value="47">47</option>
+                    <option value="48">48</option>
+                    <option value="49">49</option>
+                    <option value="50">50</option>
+                    <option value="51">51</option>
+                    <option value="52">52</option>
+                    <option value="53">53</option>
+                    <option value="54">54</option>  
+                    <option value="55">55</option>
+                    <option value="56">56</option>
+                    <option value="57">57</option>
+                    <option value="58">58</option>
+                    <option value="59">59</option>
+                    <option value="60">60</option>
+                    <option value="61">61</option>
+                    <option value="62">62</option>
+                    <option value="63">63</option>
+                    <option value="64">64</option>
+                    <option value="65">65</option>
+                    <option value="66">66</option>
+                    <option value="67">67</option>
+                    <option value="68">68</option>
+                    <option value="69">69</option>
+                    <option value="70">70</option>
+                    <option value="71">71</option>
+                    <option value="72">72</option>
+                    <option value="73">73</option>
+                    <option value="74">74</option>
+                    <option value="75">75</option>
+                    <option value="76">76</option>
+                    <option value="77">77</option>
+                    <option value="78">78</option>
+                    <option value="79">79</option>
+                    <option value="80">80</option>
+                    <option value="81">81</option>
+                    <option value="82">82</option>
+                    <option value="83">83</option>
+                    <option value="84">84</option>
+                    <option value="85">85</option>
+                    <option value="86">86</option>
+                    <option value="87">87</option>
+                    <option value="88">88</option>
+                    <option value="89">89</option>
+                    <option value="90">90</option>  
+                    <option value="91">91</option>
+                    <option value="92">92</option>
+                    <option value="93">93</option>
+                    <option value="94">94</option>
+                    <option value="95">95</option>
+                    <option value="96">96</option>
+                    <option value="97">97</option>
+                    <option value="98">98</option>
+                    <option value="99">99</option>
+                    <option value="100">100</option>
+                    <option value="101">101</option>
+                    <option value="102">102</option>
+                    <option value="103">103</option>
+                    <option value="104">104</option>
+                    <option value="105">105</option>
+                    <option value="106">106</option>
+                    <option value="107">107</option>
+                    <option value="108">108</option>
+                </select>
+
+                <select name="gender" id="gender">
+                    <option value="placeholder" selected>Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>                
+                <input type="submit" value="Save Personal Information" id="submit">
+            </form>
+        </div>
+
+        <img id="keyboard" src="./images/keyboard.jpeg" alt="Keyboard" style="display: none;">
+
+        <div id="popup" style="display: none;">
+            <button id="closePopup">X</button>
+            <p>Profile saved!</p>
+        </div>
+
+        <div id="FoodInfo">
+            <h2>Food Preferences (Select up to one)</h2>
+            <form id="foodForm">
+                <div class="button-container">
+                    <input type="radio" id="vegan" name="foodPreference" value="vegan">
+                    <label for="vegan">
+                        <img src="./images/vegan.png" alt="vegan">
+                        Vegan
+                    </label>
+                    <input type="radio" id="vegetarian" name="foodPreference" value="vegetarian">
+                    <label for="vegetarian">
+                        <img src="./images/vegetarian.png" alt="vegetarian">
+                        Vegetarian
+                    </label>
+                    <input type="radio" id="pescatarian" name="foodPreference" value="pescatarian">
+                    <label for="pescatarian">
+                        <img src="./images/pescatarian.png" alt="pescatarian">
+                        Pescatarian
+                    </label>
+                    <input type="radio" id="noRedMeat" name="foodPreference" value="noRedMeat">
+                    <label for="noRedMeat">
+                        <img src="./images/no-red-meat.png" alt="no red meat">
+                        No Red Meat
+                    </label>
+                </div>
+                <div class="submit-container">
+                    <input type="submit" id="submit" value="Save Food Preferences">
+                </div>
+            </form>
+        </div>
+
+        <div id="foodRestrictions">
+            <h2>Food Restrictions (Select all that apply)</h2>
+            <form id="restrictionForm">
+                <div class="button-container">
+                    <input type="checkbox" id="glutenFree" name="restriction" value="glutenFree">
+                    <label for="glutenFree">
+                        <img src="./images/gluten-free.png" alt="gluten free">
+                        Gluten Free
+                    </label>
+                    <input type="checkbox" id="dairyFree" name="restriction" value="dairyFree">
+                    <label for="dairyFree">
+                        <img src="./images/dairy.png" alt="dairy free">
+                        Dairy Free
+                    </label>
+                    <input type="checkbox" id="nutFree" name="restriction" value="nutFree">
+                    <label for="nutFree">
+                        <img src="./images/nut-free.png" alt="nut free">
+                        Nut Free
+                    </label>
+                    <input type="checkbox" id="soyFree" name="restriction" value="soyFree">
+                    <label for="soyFree">
+                        <img src="./images/soy-free.png" alt="soy free">
+                        Soy Free
+                    </label>
+                    <input type="checkbox" id="shellfishFree" name="restriction" value="shellfishFree">
+                    <label for="shellfishFree">
+                        <img src="./images/shellfish-free.png" alt="shellfish free">
+                        Shellfish Free
+                    </label>
+                </div>
+                <div class="submit-container">
+                    <input type="submit" id="submit" value="Save Food Restrictions">
+                </div>
+            </form>
+
+        </div>
+
+        <script>
+            // Retrieve saved profile data from localStorage
+            var savedProfile = localStorage.getItem("profile");
+            if (savedProfile) {
+                var profileData = JSON.parse(savedProfile);
+                document.getElementById("name").value = profileData.name;
+                document.getElementById("email").value = profileData.email;
+                document.getElementById("age").value = profileData.age;
+                document.getElementById("gender").value = profileData.gender;
+            }
+
+            var savedPreferences = localStorage.getItem("preferences");
+            if (savedPreferences) {
+                var preferences = JSON.parse(savedPreferences);
+                var radioButtons = document.getElementsByName("foodPreference");
+                radioButtons.forEach(function(radioButton) {
+                    if (radioButton.value === preferences) {
+                        radioButton.checked = true;
+                    }
+                });
+            }
+
+            var savedRestrictions = localStorage.getItem("restrictions");
+            if (savedRestrictions) {
+                var restrictions = JSON.parse(savedRestrictions);
+                restrictions.forEach(function(restriction) {
+                    var checkbox = document.getElementById(restriction);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+            }
+
+            // Save profile data to localStorage on form submission
+            document.getElementById("profileForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+                var name = document.getElementById("name").value;
+                var email = document.getElementById("email").value;
+                var age = document.getElementById("age").value;
+                var gender = document.getElementById("gender").value;
+                var profileData = {
+                    name: name,
+                    email: email,
+                    age: age,
+                    gender: gender
+                };
+                localStorage.setItem("profile", JSON.stringify(profileData));
+                document.getElementById('popup').style.display = 'block';
+            });
+
+            document.getElementById("foodForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+                var preferences = document.querySelector('input[name="foodPreference"]:checked').value;
+                localStorage.setItem("preferences", JSON.stringify(preferences));
+                document.getElementById('popup').style.display = 'block';
+            });
+
+            document.getElementById('restrictionForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var restrictions = Array.from(document.querySelectorAll('input[name="restriction"]:checked')).map(input => input.value);
+                localStorage.setItem('restrictions', JSON.stringify(restrictions));
+                document.getElementById('popup').style.display = 'block';
+            });
+
+            document.getElementById('name').addEventListener('focus', showKeyboard);
+            document.getElementById('email').addEventListener('focus', showKeyboard);
+            document.getElementById('name').addEventListener('blur', hideKeyboard);
+            document.getElementById('email').addEventListener('blur', hideKeyboard);
+
+
+
+            function showKeyboard() {
+                console.log('showKeyboard was called');
+                document.querySelector('#keyboard').style.display = 'block';
+                document.body.style.marginBottom = '600px'; 
+            }
+
+            function hideKeyboard() {
+                document.querySelector('#keyboard').style.display = 'none';
+                document.body.style.marginBottom = '0';
+            }
+
+            document.querySelectorAll('#foodForm input[type="radio"]').forEach((radio) => {
+                radio.addEventListener('click', function(event) {
+                    if (this.previousChecked) {
+                        this.checked = false;
+                    }
+                    this.previousChecked = this.checked;
+                });
+            });
+
+            document.getElementById('closePopup').addEventListener('click', function() {
+                document.getElementById('popup').style.display = 'none'; // Hide the popup
+            });
+        </script>
+
+        <script>
+            // From https://www.w3schools.com/howto/howto_js_mobile_navbar.asp
+            function menu() {
+                var menuTabs = document.getElementById("tabs");
+                if (menuTabs.style.display == "block") {
+                    menuTabs.style.display = "none";
+                } else {
+                    menuTabs.style.display = "block";
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="CSS/recipes.css" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+        <title>Recipes</title>
+    </head>
+    <body>
+        <div id="header">
+            <button onclick="menu()"><img src="./images/menu-icon.png" id="menu"></button>
+            <h1>Recipes</h1>
+            <a href="home.html"><img src="./images/home-icon.png" id="profile" height="50px"></a>
+        </div>
+
+        <div id="tabs">
+            <a href="./home.html">Home</a>
+            <a href="./inventory.html">Kitchen Inventory</a>
+            <a href="./shoppingList.html">Shopping List</a>
+            <a href="./expiringItems.html">Expiring Items</a>
+            <a href="./timer.html">Timer</a>
+            <a href="./profiles.html">Profiles</a>
+        </div>
+
+        <div id="searchFilters" style="padding-top: 10px;">
+            <label style="padding-left: 5px;">
+                <b>Search:</b> 
+                <input type="text" id="search_bar" placeholder="Recipe name..." style="font-size: 20px; border-width: 1px;">
+            </label>
+            <div id="filters" style="padding-left: 5px;">
+                <label>
+                    <input type="checkbox" id="df" name="df" value="DF">
+                    Dairy Free
+                </label>
+
+                <label>
+                    <input type="checkbox" id="sf" name="sf" value="SF">
+                    Soy Free
+                </label>
+
+                <label>
+                    <input type="checkbox" id="fav" name="fav" value="Fav">
+                    Favorites
+                </label>
+
+                <label>
+                    <input type="checkbox" id="sff" name="sff" value="SFF">
+                    Shellfish Free
+                </label>
+
+                <label>
+                    <input type="checkbox" id="gf" name="gf" value="GF">
+                    Gluten Free
+                </label>
+                
+                <label>
+                    <input type="checkbox" id="vegan" name="vegan" value="Vegan">
+                    Vegan
+                </label>
+                
+                <label>
+                    <input type="checkbox" id="pf" name="pf" value="PF">
+                    Peanut Free
+                </label>
+                
+                <label>
+                    <input type="checkbox" id="vegetarian" name="vegetarian" value="Vegetarian">
+                    Vegetarian
+                </label>
+            </div>
+            <br>
+            <div id="submit">
+                <button type="button" onclick="Display()">Submit</button>
+                <button onclick="clearFilters()">Clear Filters</button>
+            </div>
+        </div>
+
+        <div id="show"></div>
+
+        <div id="newRecipe" style="overflow-y: auto;">
+            <div id="addRecipeHeader">
+                <button onclick="closeAddRecipe()"><img src="./images/close.png" style="padding-left: 5px;"></button>
+                <h1>New Recipe</h1>
+            </div>
+
+            <div id="recipeInfo" style="padding: 15px 0 0 10px;">
+                <form id="addRecipeData">
+                    <label>
+                        <b>Recipe Name: </b> 
+                        <input type="text" id="recipe_name" placeholder="Recipe name..." style="font-size: 20px; border-width: 1px;">
+                    </label>
+
+                    <br><br>
+
+                    <label>
+                        <b>Recipe Image</b>
+                        <input type="text" id="recipeImage" placeholder="image.(png, jpg)" style="font-size: 20px; border-width: 1px;">
+                    </label>
+                    
+                    <br><br>
+
+                    <label>
+                        <b>Recipe Skill Level: </b> 
+                        <input type="text" id="recipe_skill" placeholder="Recipe skill..." style="font-size: 20px; border-width: 1px;">
+                    </label>
+                    
+                    <br><br>
+
+                    <label>
+                        <b># of people recipe serves: </b>
+                        <select id="numberServed">
+                            <option value="placeholder" selected>#</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10+">10+</option>
+                        </select>
+                    </label>
+
+                    <br><br>
+
+                    <label>
+                        <b>Cook Time:</b>
+                        <select id="hours">
+                            <option value="0" selected>0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                        </select>
+                        hrs
+                        <select id="minutes">
+                            <option value="0" selected>0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                            <option value="32">32</option>
+                            <option value="33">33</option>
+                            <option value="34">34</option>
+                            <option value="35">35</option>
+                            <option value="36">36</option>
+                            <option value="37">37</option>
+                            <option value="38">38</option>
+                            <option value="39">39</option>
+                            <option value="40">40</option>
+                            <option value="41">41</option>
+                            <option value="42">42</option>
+                            <option value="43">43</option>
+                            <option value="44">44</option>
+                            <option value="45">45</option>
+                            <option value="46">46</option>
+                            <option value="47">47</option>
+                            <option value="48">48</option>
+                            <option value="49">49</option>
+                            <option value="50">50</option>
+                            <option value="51">51</option>
+                            <option value="52">52</option>
+                            <option value="53">53</option>
+                            <option value="54">54</option>
+                            <option value="55">55</option>
+                            <option value="56">56</option>
+                            <option value="57">57</option>
+                            <option value="58">58</option>
+                            <option value="59">59</option>
+                        </select>
+                        mins
+                        <select id="seconds">
+                            <option value="0" selected>0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                            <option value="32">32</option>
+                            <option value="33">33</option>
+                            <option value="34">34</option>
+                            <option value="35">35</option>
+                            <option value="36">36</option>
+                            <option value="37">37</option>
+                            <option value="38">38</option>
+                            <option value="39">39</option>
+                            <option value="40">40</option>
+                            <option value="41">41</option>
+                            <option value="42">42</option>
+                            <option value="43">43</option>
+                            <option value="44">44</option>
+                            <option value="45">45</option>
+                            <option value="46">46</option>
+                            <option value="47">47</option>
+                            <option value="48">48</option>
+                            <option value="49">49</option>
+                            <option value="50">50</option>
+                            <option value="51">51</option>
+                            <option value="52">52</option>
+                            <option value="53">53</option>
+                            <option value="54">54</option>
+                            <option value="55">55</option>
+                            <option value="56">56</option>
+                            <option value="57">57</option>
+                            <option value="58">58</option>
+                            <option value="59">59</option>
+                        </select>
+                        secs
+                    </label>
+                    
+                    <br><br>
+                    
+                    <label><b>Ingredients:</b></label>
+                    
+                    <div id="ingredients"></div>
+
+                    <br>
+
+                    <label><b>Select Recipe Filters:</b></label>
+
+                    <div id="addFilters">
+                        <label>
+                            <input type="checkbox" id="df" name="df" value="DF">
+                            Dairy Free
+                        </label>
+
+                        <label>
+                            <input type="checkbox" id="sf" name="sf" value="SF">
+                            Soy Free
+                        </label>
+
+                        <label>
+                            <input type="checkbox" id="fav" name="fav" value="Fav">
+                            Favorites
+                        </label>
+
+                        <label>
+                            <input type="checkbox" id="sff" name="sff" value="SFF">
+                            Shellfish Free
+                        </label>
+
+                        <label>
+                            <input type="checkbox" id="gf" name="gf" value="GF">
+                            Gluten Free
+                        </label>
+                        
+                        <label>
+                            <input type="checkbox" id="vegan" name="vegan" value="Vegan">
+                            Vegan
+                        </label>
+                        
+                        <label>
+                            <input type="checkbox" id="pf" name="pf" value="PF">
+                            Peanut Free
+                        </label>
+                        
+                        <label>
+                            <input type="checkbox" id="vegetarian" name="vegetarian" value="Vegetarian">
+                            Vegetarian
+                        </label>
+                    </div>
+
+                    <br>
+
+                    <label>
+                        <b>Instructions:</b>
+                        <br>
+                        <textarea id="instructions" placeholder="Recipe steps/instructions"></textarea>
+                    </label>
+                </form>
+                <div id="saveRecipe" style="margin-bottom: 5px;">
+                    <button onclick="saveRecipe()">Save</button>
+                </div>
+            </div>
+
+            <div id="keyboardB" style="display: none;">
+                <img id="keyboardB" src="./images/keyboard.jpeg" alt="Keyboard">
+            </div>
+        </div>
+
+        <div id="editRecipe" style="overflow: auto;">
+            <div id="editRecipeHeader">
+                <button onclick="closeEditRecipe()"><img src="./images/close.png" style="padding-left: 5px;"></button>
+                <h1>Edit Recipe</h1>
+            </div>
+
+            <div id="editRecipeInfo" style="padding: 15px 0 0 10px;">
+                <form id="editRecipeData">
+                    <label>
+                        <b>Recipe Name: </b> 
+                        <input type="text" id="recipe_name" placeholder="Recipe name..." style="font-size: 20px; border-width: 1px;">
+                    </label>
+
+                    <br><br>
+
+                    <label>
+                        <b>Recipe Image</b>
+                        <input type="text" id="recipeImage" placeholder="image.(png, jpg)" style="font-size: 20px; border-width: 1px;">
+                    </label>
+                    
+                    <br><br>
+
+                    <label>
+                        <b>Recipe Skill Level: </b> 
+                        <input type="text" id="recipe_skill" placeholder="Recipe skill..." style="font-size: 20px; border-width: 1px;">
+                    </label>
+                    
+                    <br><br>
+
+                    <label>
+                        <b># of people recipe serves: </b>
+                        <select id="numberServed">
+                            <option value="placeholder" selected>#</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10+">10+</option>
+                        </select>
+                    </label>
+
+                    <br><br>
+
+                    <label>
+                        <b>Cook Time:</b>
+                        <select id="hours">
+                            <option value="0" selected>0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                        </select>
+                        hrs
+                        <select id="minutes">
+                            <option value="0" selected>0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                            <option value="32">32</option>
+                            <option value="33">33</option>
+                            <option value="34">34</option>
+                            <option value="35">35</option>
+                            <option value="36">36</option>
+                            <option value="37">37</option>
+                            <option value="38">38</option>
+                            <option value="39">39</option>
+                            <option value="40">40</option>
+                            <option value="41">41</option>
+                            <option value="42">42</option>
+                            <option value="43">43</option>
+                            <option value="44">44</option>
+                            <option value="45">45</option>
+                            <option value="46">46</option>
+                            <option value="47">47</option>
+                            <option value="48">48</option>
+                            <option value="49">49</option>
+                            <option value="50">50</option>
+                            <option value="51">51</option>
+                            <option value="52">52</option>
+                            <option value="53">53</option>
+                            <option value="54">54</option>
+                            <option value="55">55</option>
+                            <option value="56">56</option>
+                            <option value="57">57</option>
+                            <option value="58">58</option>
+                            <option value="59">59</option>
+                        </select>
+                        mins
+                        <select id="seconds">
+                            <option value="0" selected>0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                            <option value="32">32</option>
+                            <option value="33">33</option>
+                            <option value="34">34</option>
+                            <option value="35">35</option>
+                            <option value="36">36</option>
+                            <option value="37">37</option>
+                            <option value="38">38</option>
+                            <option value="39">39</option>
+                            <option value="40">40</option>
+                            <option value="41">41</option>
+                            <option value="42">42</option>
+                            <option value="43">43</option>
+                            <option value="44">44</option>
+                            <option value="45">45</option>
+                            <option value="46">46</option>
+                            <option value="47">47</option>
+                            <option value="48">48</option>
+                            <option value="49">49</option>
+                            <option value="50">50</option>
+                            <option value="51">51</option>
+                            <option value="52">52</option>
+                            <option value="53">53</option>
+                            <option value="54">54</option>
+                            <option value="55">55</option>
+                            <option value="56">56</option>
+                            <option value="57">57</option>
+                            <option value="58">58</option>
+                            <option value="59">59</option>
+                        </select>
+                        secs
+                    </label>
+                    
+                    <br><br>
+                    
+                    <label><b>Ingredients:</b></label>
+                    
+                    <div id="editIngredients"></div>
+
+                    <br>
+
+                    <label><b>Select Recipe Filters:</b></label>
+
+                    <div id="addFilters">
+                        <label>
+                            <input type="checkbox" id="df" name="df" value="DF">
+                            Dairy Free
+                        </label>
+
+                        <label>
+                            <input type="checkbox" id="sf" name="sf" value="SF">
+                            Soy Free
+                        </label>
+
+                        <label>
+                            <input type="checkbox" id="fav" name="fav" value="Fav">
+                            Favorites
+                        </label>
+
+                        <label>
+                            <input type="checkbox" id="sff" name="sff" value="SFF">
+                            Shellfish Free
+                        </label>
+
+                        <label>
+                            <input type="checkbox" id="gf" name="gf" value="GF">
+                            Gluten Free
+                        </label>
+                        
+                        <label>
+                            <input type="checkbox" id="vegan" name="vegan" value="Vegan">
+                            Vegan
+                        </label>
+                        
+                        <label>
+                            <input type="checkbox" id="pf" name="pf" value="PF">
+                            Peanut Free
+                        </label>
+                        
+                        <label>
+                            <input type="checkbox" id="vegetarian" name="vegetarian" value="Vegetarian">
+                            Vegetarian
+                        </label>
+                    </div>
+
+                    <br>
+
+                    <label>
+                        <b>Instructions:</b>
+                        <br>
+                        <textarea id="editInstructions" placeholder="Recipe steps/instructions"></textarea>
+                    </label>
+                </form>
+                <div id="saveEditRecipe" style="margin-bottom: 5px;">
+                    <button onclick="saveEditRecipe()">Save</button>
+                </div>
+            </div>
+
+            <div id="editKeyboardB" style="display: none;">
+                <img id="keyboardB" src="./images/keyboard.jpeg" alt="Keyboard">
+            </div>
+        </div>
+
+        <div id="viewRecipe" style="overflow: auto;">
+            <div id="viewRecipeHeader">
+                <button onclick="closeViewRecipe()"><img src="./images/close.png" style="padding-left: 5px;"></button>
+                <h1 id="pageName"></h1>
+                <!-- <button onclick="editRecipe()"><img src="./images/edit.png" style="padding-right: 5px;"></button> -->
+            </div>
+
+            <div id="viewRecipeData" >
+                <img id="viewImage" src="" style="width: 576px; height: 334px;">
+                <p id="viewSkill" style="margin: 10px;"></p>
+                <p id="viewTime" style="margin: 10px;"></p>
+                <p id="viewServes" style="margin: 10px;"></p>
+                <h2 style="margin: 10px;">Dietary Info</h2>
+                <div id="viewDietaryInfo" style="margin: 10px 10px 10px 20px;"></div>
+                <h2 style="margin: 10px;">Ingredients</h2>
+                <p id="viewIngredients" style="margin: 10px 10px 10px 20px; line-height: 50px;"></p>
+                <h2 style="margin: 10px;">Instructions</h2>
+                <p id="viewInstructions" style="margin: 10px 10px 10px 20px;"></p>
+                <br>
+            </div>
+        </div>
+
+        <a onclick="addRecipe()" id="addRecipe">
+            <img src="./images/add.png" width="40px" height="40px" style="position: relative; vertical-align: middle;">
+            <em style="position: relative; vertical-align: middle;">Add Recipe</em></a>
+
+        <!-- <div id="bottomMenu">Testing</div> -->
+
+        <img id="keyboard" src="./images/keyboard.jpeg" alt="Keyboard" style="display: none; z-index: 10;">
+    </body>
+</html>
+
+<script>
+    class Recipe {
+        constructor(img, name, time, skill, serves, dietary, ingredients, isFav, instructions) {
+            this.img = img;
+            this.name = name;
+            this.time = time;
+            this.skill = skill;
+            this.serves = serves;
+            if (isFav) {
+                this.html = '<div class=\"container\"><img onclick="viewRecipe(\'' + name + '\')" src=\"' + img + '\">'
+                        + '<a id="recipeHeader" onclick="viewRecipe(\'' + name + '\')">' + name + '</a><h4>'
+                        + time + ' Minutes | ' + skill + ' | Serves ' + serves
+                        + '</h4><a onclick="favorite(\'' + name + '\')"><img src="./images/favorited.png" id="favorite"></a>'
+                        + '<a onclick="editRecipe(\'' + name +'\')"><img src="./images/edit.png" id="edit"></a></div>';
+            } else {
+                this.html = '<div class=\"container\"><img onclick="viewRecipe(\'' + name + '\')" src=\"' + img + '\">'
+                        + '<a id="recipeHeader" onclick="viewRecipe(\'' + name + '\')">' + name + '</a><h4>'
+                        + time + ' Minutes | ' + skill + ' | Serves ' + serves
+                        + '</h4><a onclick="favorite(\'' + name + '\')"><img src="./images/favorite_button.png" id="favorite"></a>'
+                        + '<a onclick="editRecipe(\'' + name + '\')"><img src="./images/edit.png" id="edit"></a></div>';
+            }
+            this.dietary = dietary;
+            this.ingredients = ingredients;
+            this.isFav = isFav;
+            this.instructions = instructions;
+        }
+    }
+
+    class Ingredient{
+        constructor(name, amount, measurement){
+            this.name = name;
+            this.amount = amount;
+            this.measurement = measurement;
+        }
+    }
+
+    window.onload = function() {
+        let allRecipes = JSON.parse(localStorage.getItem("Recipes"));
+        let content = '<h2 style="padding-left: 5px; margin: 10px;">Recipes</h2>'
+            + '<a onclick="addRecipe()" id="addRecipe">'
+            + '<img src="./images/add.png" width="40px" height="40px" style="position: relative; vertical-align: middle;">'
+            + '<em style="position: relative; vertical-align: middle;">Add Recipe</em></a>';
+
+        allRecipes = sortRecipes(allRecipes);
+        for (let i = 0; i < allRecipes.length; i++) {
+            content = content + allRecipes[i].html;
+        }
+
+        document.getElementById("show").innerHTML = content;
+    }
+
+    let recipes = [];
+    recipes.push(new Recipe("images/veggie_burger.jpg", "Veggie Bean Burger", 60, "Beginner", 5, ["Vegetarian"], [], false, ""));
+    recipes.push(new Recipe("images/beyond_burger.jpg", "Beyond Burger", 30, "Intermediate", 2, ["Vegetarian"], [], false, ""));
+    recipes.push(new Recipe("images/ultimate_burger.jpg", "Ultimate BBQ Burger", 30, "Intermediate", 2, [], [], false, ""));
+    recipes.push(new Recipe("images/taco-spaghetti.jpg", "Taco Spaghetti", 40, "Beginner", "4", [], [
+        new Ingredient("Ground Beef", 1, "lb(s)"), new Ingredient("Yellow Onion", 1, "N/A"),
+        new Ingredient("Garlic", 4, "clove(s)"), new Ingredient("Water", 4, "cup(s)"),
+        new Ingredient("Diced Tomatoes", 1, "can(s)"), new Ingredient("Taco Seasoning", 1, "packet(s)"),
+        new Ingredient("Spaghetti", 8, "oz"), new Ingredient("Velveeta or American Cheese", 4, "oz"),
+        new Ingredient("Shredded Sharp Cheddar Cheese", 1, "cup(s)"), new Ingredient("Cilantro", "1/2", "cup(s)"),
+        new Ingredient("(Optional) Sour Cream", "preference", "N/A")
+    ], true, "Step 1: In a large pot over medium-high heat, cook ground beef, onion, and garlic, stirring occasionally, until beef is browned, 5 to 6 minutes. "
+            + "Add water, tomatoes, and taco seasoning, then cover and bring to a boil."
+            + "\n\nStep 2: Break spaghetti in half lengthwise and add to sauce. Reduce heat to medium, cover, and simmer until pasta is tender, 12 to 14 minutes."
+            + "\n\nStep 3: Remove from heat and stir in Velveeta, cheddar, and cilantro until cheese is melted. Serve topped with more cilantro and sour cream, if using."));
+    recipes.push(new Recipe("images/halloumi-salad.jpg", "Fried Halloumi Salad", 25, "Beginner", 4, ["GF"], [
+        new Ingredient("Lemon Juice", 2, "tbsp"), new Ingredient("Extra-Virgin Olive Oil", "1/4", "cup(s)"),
+        new Ingredient("Chopped Dill", 2, "tbsp"), new Ingredient("Chopped Mint", 2, "tbsp"),
+        new Ingredient("Salt", "to taste", "N/A"), new Ingredient("Black Pepper", "to taste", "N/A"),
+        new Ingredient("Canned Chikpeas", 1, "cup(s)"), new Ingredient("Small Head Fennel", 1, "N/A"),
+        new Ingredient("Green Olives", "1/4", "cup(s)"), new Ingredient("Extra Virgin Olive Oil", 2, "tbsp"),
+        new Ingredient("Halloumi", 8, "oz"), new Ingredient("Pita", 1, "N/A"),
+        new Ingredient("Arugula", 2, "cup(s)"), new Ingredient("Medium Naval Orange", 1, "N/A"),
+        new Ingredient("Avocado", "1/2", "N/A"), new Ingredient("Red Pepper Flakes", "to taste", "N/A")
+    ], false, "Step 1: In a large bowl, whisk together all dressing ingredients and season to taste with salt and pepper."
+            + "\n\nStep 2: Add chickpeas, fennel, and olives to bowl with dressing and toss to combine."
+            + "\n\nStep 3: In a large skillet over medium heat, heat 1 tablespoon oil. Add halloumi and cook until charred and golden on both sides, about 4 to 6 minutes total. "
+            + "Remove cheese to a large plate."
+            + "\n\nStep 4: In the same skillet over medium heat, heat remaining oil. Add pita and toast until golden and crisp, about 4 minutes. Remove to plate with halloumi."
+            + "\n\nStep 5: Add arugula, halloumi, and pita to bowl with chickpeas, fennel, and olives and toss to combine. "
+            + "Remove peel and pit from avocado half if necessary and cut crosswise into thin slices."
+            + "\n\nStep 6: Add orange segments and avocado slices and toss very gently until combined. Season to taste with salt, pepper, and red pepper flakes, and serve."));
+    recipes.push(new Recipe("images/Lemon-Herb-Chicken.png", "Lemon Herb Chicken", 15, "Beginner", 2, ["DF", "SFF", "GF", "PF"], [
+        new Ingredient("Chicken Breast", 2, "N/A"), new Ingredient("Lemon", 1, "N/A"),
+        new Ingredient("Salt", "to taste", "N/A"), new Ingredient("Black Pepper", "to taste", "N/A"),
+        new Ingredient("Olive Oil", 1, "tbsp"), new Ingredient("Dried Oregano", 1, "pinch"),
+        new Ingredient("Parsley", 2, "sprig(s)")
+    ], false, "Place chicken in a bowl; pour 1/2 of the lemon juice over chicken and season with salt.\n\n"
+        + "Heat olive oil in a medium skillet over medium-low heat. Place chicken into hot oil. Add remaining lemon juice and oregano; "
+        + "season with black pepper. Cook chicken until golden brown and the juices run clear, 5 to 10 minutes per side. "
+        + "An instant-read thermometer inserted into the center should read at least 165 degrees F (74 degrees C).\n\n"
+        + "Garnish chicken with parsley to serve."));
+    recipes.push(new Recipe("images/pan-roasted-chicken-breasts.png", "Seared Chicken Breasts", 20, "Beginner", 4, ["SFF", "PF"], [
+        new Ingredient("Boneless Chicken Breast Halves", 4, "N/A"), new Ingredient("Salt", "to taste", "N/A"),
+        new Ingredient("Black Pepper", "to taste", "N/A"), new Ingredient("Olive Oil", 2, "tbsp"),
+        new Ingredient("(Optional) Chopped Herbs (thyme, parsley, rosemary)", 1, "tbsp"), new Ingredient("Apple Cider Vinegar", "1/4", "cup(s)"),
+        new Ingredient("Butter", 4, "tbsp"), new Ingredient("Chicken Broth (or water)", 1, "tbsp")
+    ], true, "Step 1: Gather all ingredients"
+            + "\n\nStep 2: Season chicken on both sides with salt and pepper."
+            + "\n\nStep 3: Heat olive oil in a heavy skillet over medium-high heat until it starts to shimmer. "
+            + "Place chicken breasts in the skillet. Sprinkle with fresh herbs. "
+            + "Cook until the bottoms are well seared and golden brown, 5 to 6 minutes."
+            + "\n\nStep 4: Flip chicken breasts over and continue cooking until an internal temperature of 150 degrees F (66 degrees C). About 5 minutes."
+            + "\n\nStep 5: Add vinegar and butter to the pan with chicken. Shake the pan gently until butter melts "
+            + "and the internal temperature of chicken reads at least 165 degrees F (74 degrees C), 2 to 3 minutes more."
+            + "\n\nStep 6: Stir in chicken broth to thin sause."));
+    recipes.push(new Recipe("images/goulash.png", "Goulash", 45, "Beginner", 4, ["Vegetarian"], [
+        new Ingredient("Elbow Macaroni", "11/2", "box(es)"), new Ingredient("Ground Beef", 1, "lb(s)"),
+        new Ingredient("Onion", "1/2", "N/A"), new Ingredient("Garlic", 3, "clove(s)"), new Ingredient("Worcestershire Sauce", 1, "tbsp"),
+        new Ingredient("Tomato Sauce", 1, "can(s)"), new Ingredient("Petit Diced Tomatoes", 1, "can(s)"),
+        new Ingredient("Italian Seasoning", "1 1/2", "tbsp"), new Ingredient("Salt", 2, "tsp"),
+        new Ingredient("Black Pepper", 1/2, "tsp"), new Ingredient("Shredded Cheddar Cheese", 1, "cup(s)")
+    ], true, "Step 1: Preheat oven to 3500 degrees."
+            + "\n\nStep 2: Bring a large pot of water to boil. Cook macaroni for 3 minutes less than the box directions, then drain." 
+            + "\n\nStep 3: Heat a large skillet over high heat. Add ground beef and onions to the pan. Break beef apart, cooking for 6-7 minutes until browned. Drain any fat."
+            + "\n\nStep 4: Mix in garlic and cook until fragrant, about 1 minute."
+            + "\n\nStep 5: Add in Worcestershire sauce, tomato sauce, and diced tomatoes. Mix until combined."
+            + "\n\nStep 6: Stir in the Italian seasoning, salt, and pepper. Taste and adjust the seasonings."
+            + "\n\nStep 7: Mix in cooked macaroni and cheddar cheese. "
+            + "If your skillet is heat-safe, you can place in the oven for 20-25 minutes until the goulash is bubbly and the cheese is melted. "
+            + "If the skillet is not heat-safe, transfer the goulash to a casserole dish and bake."))
+
+    if (localStorage.getItem("Recipes") == null || JSON.parse(localStorage.getItem("Recipes")).length < recipes.length) {
+        localStorage.setItem("Recipes", JSON.stringify(recipes));
+    }
+
+    function sortRecipes(recipes) {
+        recipes.sort(function(rec1, rec2) {
+            var name1 = rec1.name.toLowerCase();
+            var name2 = rec2.name.toLowerCase();
+            if (name1 < name2) {
+                return -1;
+            } else if (name2 < name1) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        return recipes;
+    }
+
+    function Display(){
+        let text = document.getElementById("search_bar").value;
+        let checkedFilters = []
+        let filters = document.getElementById("filters").getElementsByTagName("input");
+        let favorites = false;
+        let content = document.getElementById("show").innerHTML;
+        let allRecipes = [];
+        let itemAdded = false;
+
+        for (let i = 0; i < filters.length; i++) {
+            if (filters[i].checked) {
+                if (filters[i].value == "Fav") {
+                    favorites = true;
+                } else {
+                    checkedFilters.push(filters[i].value);
+                }
+            }
+        }
+
+        text = text.toLowerCase();
+        content = '<h2 style="padding-left: 5px; margin: 10px;">Search Results</h2>'
+            + '<a onclick="addRecipe()" id="addRecipe">'
+            + '<img src="./images/add.png" width="40px" height="40px" style="position: relative; vertical-align: middle;">'
+            + '<em style="position: relative; vertical-align: middle;">Add Recipe</em></a>';
+
+        allRecipes = JSON.parse(localStorage.getItem("Recipes"));
+        allRecipes = sortRecipes(allRecipes);
+
+        for (let i = 0; i < allRecipes.length; i++) {
+            let recipe = allRecipes[i];
+            if (recipe.name.toLowerCase().includes(text)) {
+
+                if (favorites && checkedFilters.length > 0) {
+
+                    if (recipe.isFav) {
+
+                        for (let x = 0; x < checkedFilters.length; x++) {
+
+                            if (recipe.dietary.includes(checkedFilters[x])) {
+                                content = content + recipe.html;
+                                itemAdded = true;
+                                break;
+                            }
+
+                        }
+
+                    }
+
+                } else if (favorites && checkedFilters.length == 0) {
+
+                    if (recipe.isFav) {
+                        content = content + recipe.html;
+                        itemAdded = true;
+                    }
+
+                } else if(!favorites && checkedFilters.length > 0) {
+
+                    for (let x = 0; x < checkedFilters.length; x++) {
+
+                        if (recipe.dietary.includes(checkedFilters[x])) {
+                            content = content + recipe.html;
+                            itemAdded = true;
+                            break;
+                        }
+
+                    }
+
+                }
+                else {
+                    content = content + recipe.html;
+                    itemAdded = true;
+                }
+            }
+        }
+
+        if (itemAdded) {
+            document.getElementById("show").innerHTML = content;
+        } else {
+            document.getElementById("show").innerHTML = content + '<h5 style="padding-left: 5px; margin: 10px;"><em>No Recipes Matching Search Parameters.<em></h5>'
+        }
+    }
+
+    // From https://www.w3schools.com/howto/howto_js_mobile_navbar.asp
+    function menu() {
+        var menuTabs = document.getElementById("tabs");
+        var searchFilters = document.getElementById("searchFilters");
+        if (menuTabs.style.display == "block") {
+            menuTabs.style.display = "none";
+            searchFilters.style.pointerEvents = "auto";
+        } else {
+            menuTabs.style.display = "block";
+            searchFilters.style.pointerEvents = "none";
+        }
+    }
+
+    function clearFilters() {
+        let filters = document.getElementById("filters").getElementsByTagName("input");
+        let allRecipes = JSON.parse(localStorage.getItem("Recipes"));
+        let content = '<h2 style="padding-left: 5px; margin: 10px;">Recipes</h2>'
+            + '<a onclick="addRecipe()" id="addRecipe">'
+            + '<img src="./images/add.png" width="40px" height="40px" style="position: relative; vertical-align: middle;">'
+            + '<em style="position: relative; vertical-align: middle;">Add Recipe</em></a>';
+
+        for (let i = 0; i < filters.length; i++) {
+            filters[i].checked = false;
+        }
+        document.getElementById("search_bar").value = "";
+
+        allRecipes = sortRecipes(allRecipes);
+        for (let i = 0; i < allRecipes.length; i++) {
+            content = content + allRecipes[i].html;
+        }
+
+        document.getElementById("show").innerHTML = content;
+    }
+
+    document.getElementById('search_bar').addEventListener('focus', showKeyboard);
+    document.getElementById('search_bar').addEventListener('blur', hideKeyboard);
+    document.getElementById('recipe_name').addEventListener('focus', showKeyboard);
+    document.getElementById('recipe_name').addEventListener('blur', hideKeyboard);
+    document.getElementById('recipe_skill').addEventListener('focus', showKeyboard);
+    document.getElementById('recipe_skill').addEventListener('blur', hideKeyboard);
+    document.getElementById('instructions').addEventListener('focus', showKeyboardB);
+    document.getElementById('instructions').addEventListener('blur', hideKeyboardB);
+    document.getElementById('editInstructions').addEventListener('focus', showEditKeyboardB);
+    document.getElementById('editInstructions').addEventListener('blur', hideEditKeyboardB);
+
+    function showKeyboard() {
+        document.querySelector('#keyboard').style.display = 'block';
+        document.body.style.marginBottom = '600px';
+    }
+
+    function showKeyboardB() {
+        let keyboard = document.getElementById("keyboardB");
+        document.getElementById("saveRecipe").style.marginBottom = "15px";
+        keyboard.style.display = "block";
+        document.body.style.marginBottom = '600px';
+        history.scrollRestoration = "manual";
+        document.getElementById("newRecipe").scrollTo(0, 10000);
+        showKeyboard();
+    }
+
+    function showEditKeyboardB() {
+        let keyboard = document.getElementById("editKeyboardB");
+        document.getElementById("saveEditRecipe").style.marginBottom = "15px";
+        keyboard.style.display = "block";
+        document.body.style.marginBottom = '600px';
+        history.scrollRestoration = "manual";
+        document.getElementById("editRecipe").scrollTo(0, 10000);
+        showKeyboard();
+    }
+
+    function showKeyboardC() {
+        let keyboard = document.getElementById("keyboardB");
+        document.getElementById("saveRecipe").style.marginBottom = "15px";
+        keyboard.style.display = "block";
+        history.scrollRestoration = "manual";
+        document.getElementById("newRecipe").scrollTo(0, 350);
+        showKeyboard();
+    }
+
+    function showEditKeyboardC() {
+        let keyboard = document.getElementById("editKeyboardB");
+        document.getElementById("saveRecipe").style.marginBottom = "15px";
+        keyboard.style.display = "block";
+        history.scrollRestoration = "manual";
+        document.getElementById("editRecipe").scrollTo(0, 350);
+        showKeyboard();
+    }
+
+    function hideKeyboard() {
+        document.querySelector('#keyboard').style.display = 'none';
+        document.body.style.marginBottom = '0';
+    }
+
+    function hideKeyboardB() {
+        let keyboard = document.getElementById("keyboardB");
+        document.getElementById("saveRecipe").style.marginBottom = "5px";
+        keyboard.style.display = "none";
+        document.body.style.marginBottom = '600px';
+        hideKeyboard();
+    }
+
+    function hideEditKeyboardB() {
+        let keyboard = document.getElementById("editKeyboardB");
+        document.getElementById("saveRecipe").style.marginBottom = "5px";
+        keyboard.style.display = "none";
+        document.body.style.marginBottom = '600px';
+        hideKeyboard();
+    }
+
+    function favorite(recipeName) {
+        let recipes = JSON.parse(localStorage.getItem("Recipes"));
+
+        for (let i = 0; i < recipes.length; i++) {
+            let recipe = recipes[i];
+            if (recipe.name === recipeName) {
+                if (!recipe.isFav) {
+                    recipe.isFav = true;
+                    recipe.html = '<div class=\"container\"><img onclick="viewRecipe(\'' + recipe.name + '\')" src=\"' + recipe.img + '\">'
+                        + '<a id="recipeHeader" onclick="viewRecipe(\'' + recipe.name + '\')">' + recipe.name + '</a><h4>'
+                        + recipe.time + ' Minutes | ' + recipe.skill + ' | Serves ' + recipe.serves
+                        + '</h4><a onclick="favorite(\'' + recipe.name + '\')"><img src="./images/favorited.png" id="favorite"></a>'
+                        + '<a onclick="editRecipe(\'' + recipe.name +'\')"><img src="./images/edit.png" id="edit"></a></div>';
+                } else {
+                    recipe.isFav = false;
+                    recipe.html = '<div class=\"container\"><img onclick="viewRecipe(\'' + recipe.name + '\')" src=\"' + recipe.img + '\">'
+                        + '<a id="recipeHeader" onclick="viewRecipe(\'' + recipe.name + '\')">' + recipe.name + '</a><h4>'
+                        + recipe.time + ' Minutes | ' + recipe.skill + ' | Serves ' + recipe.serves
+                        + '</h4><a onclick="favorite(\'' + recipe.name + '\')"><img src="./images/favorite_button.png" id="favorite"></a>'
+                        + '<a onclick="editRecipe(\'' + recipe.name + '\')"><img src="./images/edit.png" id="edit"></a></div>';
+                }
+            }
+        }
+
+        localStorage.setItem("Recipes", JSON.stringify(recipes));
+        Display();
+    }
+
+    function addRecipe() {
+        document.getElementById("newRecipe").style.display = "block";
+        document.getElementById("newRecipe").scrollTo(0, 0);
+        document.getElementById("header").style.pointerEvents = "none";
+        document.getElementById("show").style.pointerEvents = "none";
+        document.getElementById("filters").style.pointerEvents = "none";
+        document.getElementById("search_bar").style.pointerEvents = "none";
+        document.getElementById("submit").style.pointerEvents = "none";
+        document.getElementById("addRecipe").style.pointerEvents = "none";
+        document.body.style.overflowY = "hidden";
+
+        let inputFilters = document.getElementById("newRecipe").getElementsByTagName("form");
+        for (let i = 0; i < inputFilters.length; i++) {
+            inputFilters[i].reset();
+        }
+
+        let content = '<input id="ingredient" type="text" placeholder="Ingredient..." style="font-size: 20px; width: 180px; height: 30px; border-width: 1px;">'
+                    + '<input id="amount" type="text" placeholder="Amount..." style="font-size: 20px; width: 180px; height: 30px; border-width: 1px; margin-left: 5px;">'
+                    + '<select id="measurement" style="margin-left: 5px;">'
+                    +    '<option value="placeholder" selected>Measurement</option>'
+                    +    '<option value="N/A">N/A</option>'
+                    +    '<option value="gallon(s)">gallon(s)</option>'
+                    +    '<option value="liter(s)">liter(s)</option>'
+                    +    '<option value="oz">oz</option>'
+                    +    '<option value="tbsp">tbsp</option>'
+                    +    '<option value="tsp">tsp</option>'
+                    +    '<option value="cup(s)">cup(s)</option>'
+                    +    '<option value="lb(s)">lb(s)</option>'
+                    +    '<option value="pinch">pinch</option>'
+                    +    '<option value="sprig(s)">sprig(s)</option>'
+                    +    '<option value="clove(s)">clove(s)</option>'
+                    +    '<option value="box(es)">box(es)</option>'
+                    +    '<option value="can(s)">can(s)</option>'
+                    +    '<option value="packet(s)">packet(s)</option>'
+                    +    '<option value="pinch">pinch</option>'
+                    + '</select>'
+
+        document.getElementById("ingredients").innerHTML = content.repeat(3)
+            + '<a onclick="addIngredient()" id="addIngredient">'
+            + '<img src="./images/add.png" width="40px" height="40px" style="position: relative; vertical-align: middle;">'
+            + '<em style="position: relative; vertical-align: middle;">Add Ingredient</em></a>';
+        
+        let inputs = document.querySelectorAll("input[type=text]");
+        Array.from(inputs).forEach(input => {
+            if (input.id == "ingredient" || input.id == "amount") {
+                input.addEventListener('focus', showKeyboardC);
+                input.addEventListener('blur', hideKeyboardB);
+            } else {
+                input.addEventListener('focus', showKeyboard);
+                input.addEventListener('blur', hideKeyboard);
+            }
+        })
+    }
+
+    function saveRecipe() {
+        let recipeName = "";
+        let recipeImg = "./images/";
+        let recipeSkill = "";
+        let serves = "";
+        let ingredientNames = [];
+        let ingredientAmounts = [];
+        let ingredientMeasurements = [];
+        let ingredients = [];
+        let checkedFilters = [];
+        let instructions = "";
+        let isFav = false;
+        let time = 0;
+
+        const formData = document.getElementById("addRecipeData");
+
+        Array.from(formData.elements).forEach(data => {
+            currId = data.id;
+            if (currId == "recipe_name") {
+                recipeName = data.value;
+            } else if (currId == "recipeImage") {
+                let value = data.value;
+                value = value.split(' ').join('');
+                recipeImg = recipeImg + value;
+                console.log(recipeImg);
+            } 
+            else if (currId == "recipe_skill") {
+                recipeSkill = data.value;
+            } else if (currId == "numberServed") {
+                serves = data.value;
+            } else if (currId == "hours") {
+                let hours = parseInt(data.value);
+                time = time + (hours * 60);
+            } else if (currId == "minutes") {
+                let mins = parseInt(data.value);
+                time = time + (mins);
+            } else if (currId == "seconds") {
+                let secs = parseInt(data.value);
+                time = time + (secs);
+            } else if (currId == "ingredient") {
+                if (data.value != '') {
+                    ingredientNames.push(data.value);
+                }
+            } else if (currId == "amount") {
+                if (data.value != '') {
+                    ingredientAmounts.push(data.value);
+                }
+            } else if (currId == "measurement") {
+                if (data.value != '') {
+                    ingredientMeasurements.push(data.value);
+                }
+            } else if (currId == "df") {
+                if (data.checked) {
+                    checkedFilters.push(data.value);
+                }
+            } else if (currId == "fav") {
+                if (data.checked) {
+                    isFav = true;
+                }
+            } else if (currId == "gf") {
+                if (data.checked) {
+                    checkedFilters.push(data.value);
+                }
+            } else if (currId == "pf") {
+                if (data.checked) {
+                    checkedFilters.push(data.value);
+                }
+            } else if (currId == "sf") {
+                if (data.checked) {
+                    checkedFilters.push(data.value);
+                }
+            } else if (currId == "sff") {
+                if (data.checked) {
+                    checkedFilters.push(data.value);
+                }
+            } else if (currId == "vegan") {
+                if (data.checked) {
+                    checkedFilters.push(data.value);
+                }
+            } else if (currId == "vegetarian") {
+                if (data.checked) {
+                    checkedFilters.push(data.value);
+                }
+            } else if (currId == "instructions") {
+                instructions = data.value;
+            }
+        })
+
+        for (let i = 0; i < ingredientNames.length; i++) {
+            ingredients.push(new Ingredient(ingredientNames[i], ingredientAmounts[i], ingredientMeasurements[i]));
+        }
+
+        if (recipeName == "") {
+            console.log("error");
+        } else {
+            let newRecipe = new Recipe(recipeImg, recipeName, time, recipeSkill, serves, checkedFilters, ingredients, isFav, instructions);
+            let allRecipes = JSON.parse(localStorage.getItem("Recipes"));
+            allRecipes.push(newRecipe);
+            localStorage.setItem("Recipes", JSON.stringify(allRecipes));
+            
+            document.getElementById("newRecipe").style.display = "none";
+            document.getElementById("header").style.pointerEvents = "auto";
+            document.getElementById("show").style.pointerEvents = "auto";
+            document.getElementById("filters").style.pointerEvents = "auto";
+            document.getElementById("search_bar").style.pointerEvents = "auto";
+            document.getElementById("submit").style.pointerEvents = "auto";
+            document.getElementById("addRecipe").style.pointerEvents = "auto";
+            document.body.style.overflowY = "auto";
+            clearFilters();
+        }
+    }
+
+    function closeAddRecipe() {
+        document.getElementById("newRecipe").style.display = "none";
+        document.getElementById("header").style.pointerEvents = "auto";
+        document.getElementById("show").style.pointerEvents = "auto";
+        document.getElementById("filters").style.pointerEvents = "auto";
+        document.getElementById("search_bar").style.pointerEvents = "auto";
+        document.getElementById("submit").style.pointerEvents = "auto";
+        document.getElementById("addRecipe").style.pointerEvents = "auto";
+        document.body.style.overflowY = "auto";
+    }
+
+    function closeEditRecipe() {
+        document.getElementById("editRecipe").style.display = "none";
+        document.getElementById("header").style.pointerEvents = "auto";
+        document.getElementById("show").style.pointerEvents = "auto";
+        document.getElementById("filters").style.pointerEvents = "auto";
+        document.getElementById("search_bar").style.pointerEvents = "auto";
+        document.getElementById("submit").style.pointerEvents = "auto";
+        document.getElementById("addRecipe").style.pointerEvents = "auto";
+        document.body.style.overflowY = "auto";
+    }
+
+    function closeViewRecipe() {
+        document.getElementById("viewRecipe").style.display = "none";
+        document.getElementById("header").style.pointerEvents = "auto";
+        document.getElementById("show").style.pointerEvents = "auto";
+        document.getElementById("filters").style.pointerEvents = "auto";
+        document.getElementById("search_bar").style.pointerEvents = "auto";
+        document.getElementById("submit").style.pointerEvents = "auto";
+        document.getElementById("addRecipe").style.pointerEvents = "auto";
+        document.body.style.overflowY = "auto";
+    }
+
+    function addIngredient() {
+        document.getElementById("addIngredient").remove();
+        let content = document.getElementById("ingredients").innerHTML;
+        let ingredients = [];
+        let amounts = [];
+        let measurements = [];
+
+        Array.from(document.querySelectorAll("#ingredient")).forEach(ingredient => {
+            ingredients.push(ingredient.value);
+        })
+
+        Array.from(document.querySelectorAll("#amount")).forEach(amount => {
+            amounts.push(amount.value);
+        })
+
+        Array.from(document.querySelectorAll("#measurement")).forEach(measurement => {
+            measurements.push(measurement.value);
+        })
+
+        content = content + '<input id="ingredient" type="text" placeholder="Ingredient..." style="font-size: 20px; width: 180px; height: 30px; border-width: 1px;">'
+                    + '<input id="amount" type="text" placeholder="Amount..." style="font-size: 20px; width: 180px; height: 30px; border-width: 1px; margin-left: 5px;">'
+                    + '<select id="measurement" style="margin-left: 5px;">'
+                    +    '<option value="placeholder" selected>Measurement</option>'
+                    +    '<option value="N/A">N/A</option>'
+                    +    '<option value="gallon(s)">gallon(s)</option>'
+                    +    '<option value="liter(s)">liter(s)</option>'
+                    +    '<option value="oz">oz</option>'
+                    +    '<option value="tbsp">tbsp</option>'
+                    +    '<option value="tsp">tsp</option>'
+                    +    '<option value="cup(s)">cup(s)</option>'
+                    +    '<option value="lb(s)">lb(s)</option>'
+                    +    '<option value="pinch">pinch</option>'
+                    +    '<option value="sprig(s)">sprig(s)</option>'
+                    +    '<option value="clove(s)">clove(s)</option>'
+                    +    '<option value="box(es)">box(es)</option>'
+                    +    '<option value="can(s)">can(s)</option>'
+                    +    '<option value="packet(s)">packet(s)</option>'
+                    +    '<option value="pinch">pinch</option>'
+                    + '</select>'
+                    + '<a onclick="addIngredient()" id="addIngredient">'
+                    +    '<img src="./images/add.png" width="40px" height="40px" style="position: relative; vertical-align: middle;">'
+                    +    '<em style="position: relative; vertical-align: middle;">Add Ingredient</em></a>'
+        document.getElementById("ingredients").innerHTML = content;
+
+        let inputs = document.querySelectorAll("input[type=text]");
+        Array.from(inputs).forEach(input => {
+            if (input.id == "ingredient" || input.id == "amount") {
+                input.addEventListener('focus', showKeyboardC);
+                input.addEventListener('blur', hideKeyboardB);
+            } else {
+                input.addEventListener('focus', showKeyboard);
+                input.addEventListener('blur', hideKeyboard);
+            }
+        })
+
+        let ingredientInputs = document.querySelectorAll("#ingredient");
+        let amountInputs = document.querySelectorAll("#amount");
+        let measurementInputs = document.querySelectorAll("#measurement");
+        console.log(ingredientInputs);
+        for (let i = 0; i < ingredients.length; i++) {
+            ingredientInputs[i].value = ingredients[i];
+            amountInputs[i].value = amounts[i];
+            measurementInputs[i].value = measurements[i];
+        }
+    }
+
+    function addIngredientEdit() {
+        document.getElementById("addIngredient").remove();
+        let content = document.getElementById("editIngredients").innerHTML;
+        let ingredients = [];
+        let amounts = [];
+        let measurements = [];
+
+        Array.from(document.querySelectorAll("#ingredient")).forEach(ingredient => {
+            ingredients.push(ingredient.value);
+        })
+
+        Array.from(document.querySelectorAll("#amount")).forEach(amount => {
+            amounts.push(amount.value);
+        })
+
+        Array.from(document.querySelectorAll("#measurement")).forEach(measurement => {
+            measurements.push(measurement.value);
+        })
+
+        content = content + '<input id="ingredient" type="text" placeholder="Ingredient..." style="font-size: 20px; width: 180px; height: 30px; border-width: 1px;">'
+                    + '<input id="amount" type="text" placeholder="Amount..." style="font-size: 20px; width: 180px; height: 30px; border-width: 1px; margin-left: 5px;">'
+                    + '<select id="measurement" style="margin-left: 5px;">'
+                    +    '<option value="placeholder" selected>Measurement</option>'
+                    +    '<option value="N/A">N/A</option>'
+                    +    '<option value="gallon(s)">gallon(s)</option>'
+                    +    '<option value="liter(s)">liter(s)</option>'
+                    +    '<option value="oz">oz</option>'
+                    +    '<option value="tbsp">tbsp</option>'
+                    +    '<option value="tsp">tsp</option>'
+                    +    '<option value="cup(s)">cup(s)</option>'
+                    +    '<option value="lb(s)">lb(s)</option>'
+                    +    '<option value="pinch">pinch</option>'
+                    +    '<option value="sprig(s)">sprig(s)</option>'
+                    +    '<option value="clove(s)">clove(s)</option>'
+                    +    '<option value="box(es)">box(es)</option>'
+                    +    '<option value="can(s)">can(s)</option>'
+                    +    '<option value="packet(s)">packet(s)</option>'
+                    +    '<option value="pinch">pinch</option>'
+                    + '</select>'
+                    + '<a onclick="addIngredientEdit()" id="addIngredient">'
+                    +    '<img src="./images/add.png" width="40px" height="40px" style="position: relative; vertical-align: middle;">'
+                    +    '<em style="position: relative; vertical-align: middle;">Add Ingredient</em></a>'
+        document.getElementById("editIngredients").innerHTML = content;
+
+        let inputs = document.querySelectorAll("input[type=text]");
+        Array.from(inputs).forEach(input => {
+            if (input.id == "ingredient" || input.id == "amount") {
+                input.addEventListener('focus', showEditKeyboardC);
+                input.addEventListener('blur', hideEditKeyboardB);
+            } else {
+                input.addEventListener('focus', showKeyboard);
+                input.addEventListener('blur', hideKeyboard);
+            }
+        })
+
+        let ingredientInputs = document.querySelectorAll("#ingredient");
+        let amountInputs = document.querySelectorAll("#amount");
+        let measurementInputs = document.querySelectorAll("#measurement");
+        console.log(ingredientInputs);
+        for (let i = 0; i < ingredients.length; i++) {
+            ingredientInputs[i].value = ingredients[i];
+            amountInputs[i].value = amounts[i];
+            measurementInputs[i].value = measurements[i];
+        }
+    }
+
+    function editRecipe(recipeName) {
+        let recipes = JSON.parse(localStorage.getItem("Recipes"));
+        let recipeEdit = null;
+        document.getElementById("editRecipe").style.display = "block";
+        document.getElementById("editRecipe").scrollTo(0, 0);
+        document.getElementById("header").style.pointerEvents = "none";
+        document.getElementById("show").style.pointerEvents = "none";
+        document.getElementById("filters").style.pointerEvents = "none";
+        document.getElementById("search_bar").style.pointerEvents = "none";
+        document.getElementById("submit").style.pointerEvents = "none";
+        document.getElementById("addRecipe").style.pointerEvents = "none";
+        document.body.style.overflowY = "hidden";
+
+        let inputFilters = document.getElementById("editRecipe").getElementsByTagName("form");
+        for (let i = 0; i < inputFilters.length; i++) {
+            inputFilters[i].reset();
+        }
+
+        Array.from(recipes).forEach(recipe => {
+            if (recipe.name == recipeName) {
+                recipeEdit = recipe;
+            }
+        })
+
+        let content = '<input id="ingredient" type="text" placeholder="Ingredient..." style="font-size: 20px; width: 180px; height: 30px; border-width: 1px;">'
+                    + '<input id="amount" type="text" placeholder="Amount..." style="font-size: 20px; width: 180px; height: 30px; border-width: 1px; margin-left: 5px;">'
+                    + '<select id="measurement" style="margin-left: 5px;">'
+                    +    '<option value="placeholder" selected>Measurement</option>'
+                    +    '<option value="N/A">N/A</option>'
+                    +    '<option value="gallon(s)">gallon(s)</option>'
+                    +    '<option value="liter(s)">liter(s)</option>'
+                    +    '<option value="oz">oz</option>'
+                    +    '<option value="tbsp">tbsp</option>'
+                    +    '<option value="tsp">tsp</option>'
+                    +    '<option value="cup(s)">cup(s)</option>'
+                    +    '<option value="lb(s)">lb(s)</option>'
+                    +    '<option value="pinch">pinch</option>'
+                    +    '<option value="sprig(s)">sprig(s)</option>'
+                    +    '<option value="clove(s)">clove(s)</option>'
+                    +    '<option value="box(es)">box(es)</option>'
+                    +    '<option value="can(s)">can(s)</option>'
+                    +    '<option value="packet(s)">packet(s)</option>'
+                    +    '<option value="pinch">pinch</option>'
+                    + '</select>'
+
+        let repeatVal = () => {
+            if (recipeEdit.ingredients.length < 1) {
+                return 3;
+            } else {
+                return recipeEdit.ingredients.length;
+            }
+        }
+        document.getElementById("editIngredients").innerHTML = content.repeat(repeatVal())
+            + '<a onclick="addIngredientEdit()" id="addIngredient">'
+            + '<img src="./images/add.png" width="40px" height="40px" style="position: relative; vertical-align: middle;">'
+            + '<em style="position: relative; vertical-align: middle;">Add Ingredient</em></a>';
+
+        const formData = document.getElementById("editRecipeData");
+        formData.elements["recipe_name"].value = recipeEdit.name;
+        formData.elements["recipeImage"].value = recipeEdit.img.replace(/images\//g, "");
+        formData.elements["recipe_skill"].value = recipeEdit.skill;
+        formData.elements["numberServed"].value = recipeEdit.serves;
+        let hours = Math.trunc(recipeEdit.time / 60);
+        let minutes = recipeEdit.time - (hours * 60);
+        formData.elements["hours"].value = hours;
+        formData.elements["minutes"].value = minutes;
+        formData.elements["fav"].checked = recipeEdit.isFav;
+        for (let i = 0; i < recipeEdit.dietary.length; i++) {
+            formData.elements[recipeEdit.dietary[i].toLowerCase()].checked = true;
+        }
+        let ingredientInput = formData.elements["ingredient"];
+        let amountInput = formData.elements["amount"];
+        let measurementInput = formData.elements["measurement"];
+        for (let i = 0; i < recipeEdit.ingredients.length; i++) {
+            let currIngredient = recipeEdit.ingredients[i];
+            ingredientInput[i].value = currIngredient.name;
+            amountInput[i].value = currIngredient.amount;
+            measurementInput[i].value = currIngredient.measurement;
+        }
+        formData.elements["editInstructions"].value = recipeEdit.instructions;
+
+        let inputs = document.querySelectorAll("input[type=text]");
+        Array.from(inputs).forEach(input => {
+            if (input.id == "ingredient" || input.id == "amount") {
+                input.addEventListener('focus', showEditKeyboardC);
+                input.addEventListener('blur', hideEditKeyboardB);
+            } else {
+                input.addEventListener('focus', showKeyboard);
+                input.addEventListener('blur', hideKeyboard);
+            }
+        })
+    }
+
+    function saveEditRecipe() {
+        let recipeName = "";
+        let recipeImg = "images/";
+        let recipeSkill = "";
+        let serves = "";
+        let ingredientNames = [];
+        let ingredientAmounts = [];
+        let ingredientMeasurements = [];
+        let ingredients = [];
+        let checkedFilters = [];
+        let instructions = "";
+        let isFav = false;
+        let time = 0;
+
+        const formData = document.getElementById("editRecipeData");
+
+        Array.from(formData.elements).forEach(data => {
+            currId = data.id;
+            if (currId == "recipe_name") {
+                recipeName = data.value;
+            } else if (currId == "recipeImage") {
+                let value = data.value;
+                value = value.split(' ').join('');
+                recipeImg = recipeImg + value;
+            } 
+            else if (currId == "recipe_skill") {
+                recipeSkill = data.value;
+            } else if (currId == "numberServed") {
+                serves = data.value;
+            } else if (currId == "hours") {
+                let hours = parseInt(data.value);
+                time = time + (hours * 60);
+            } else if (currId == "minutes") {
+                let mins = parseInt(data.value);
+                time = time + (mins);
+            } else if (currId == "seconds") {
+                let secs = parseInt(data.value);
+                time = time + (secs);
+            } else if (currId == "ingredient") {
+                if (data.value != '') {
+                    ingredientNames.push(data.value);
+                }
+            } else if (currId == "amount") {
+                if (data.value != '') {
+                    ingredientAmounts.push(data.value);
+                }
+            } else if (currId == "measurement") {
+                if (data.value != '') {
+                    ingredientMeasurements.push(data.value);
+                }
+            } else if (currId == "df") {
+                if (data.checked) {
+                    checkedFilters.push(data.value);
+                }
+            } else if (currId == "fav") {
+                if (data.checked) {
+                    isFav = true;
+                }
+            } else if (currId == "gf") {
+                if (data.checked) {
+                    checkedFilters.push(data.value);
+                }
+            } else if (currId == "pf") {
+                if (data.checked) {
+                    checkedFilters.push(data.value);
+                }
+            } else if (currId == "sf") {
+                if (data.checked) {
+                    checkedFilters.push(data.value);
+                }
+            } else if (currId == "sff") {
+                if (data.checked) {
+                    checkedFilters.push(data.value);
+                }
+            } else if (currId == "vegan") {
+                if (data.checked) {
+                    checkedFilters.push(data.value);
+                }
+            } else if (currId == "vegetarian") {
+                if (data.checked) {
+                    checkedFilters.push(data.value);
+                }
+            } else if (currId == "editInstructions") {
+                instructions = data.value;
+            }
+        })
+
+        for (let i = 0; i < ingredientNames.length; i++) {
+            ingredients.push(new Ingredient(ingredientNames[i], ingredientAmounts[i], ingredientMeasurements[i]));
+        }
+
+        if (recipeName == "") {
+            console.log("error");
+        } else {
+            let newRecipe = new Recipe(recipeImg, recipeName, time, recipeSkill, serves, checkedFilters, ingredients, isFav, instructions);
+            let allRecipes = JSON.parse(localStorage.getItem("Recipes"));
+            Array.from(allRecipes).forEach(recipe => {
+                if (recipe.name == recipeName) {
+                    allRecipes.splice(allRecipes.indexOf(recipe), 1);
+                }
+            })
+            allRecipes.push(newRecipe);
+            localStorage.setItem("Recipes", JSON.stringify(allRecipes));
+            
+            document.getElementById("editRecipe").style.display = "none";
+            document.getElementById("header").style.pointerEvents = "auto";
+            document.getElementById("show").style.pointerEvents = "auto";
+            document.getElementById("filters").style.pointerEvents = "auto";
+            document.getElementById("search_bar").style.pointerEvents = "auto";
+            document.getElementById("submit").style.pointerEvents = "auto";
+            document.getElementById("addRecipe").style.pointerEvents = "auto";
+            document.body.style.overflowY = "auto";
+            clearFilters();
+        }
+    }
+
+    function viewRecipe(recipeName) {
+        let recipe = null;
+        let allRecipes = JSON.parse(localStorage.getItem("Recipes"));
+        document.getElementById("viewRecipe").style.display = "block";
+        document.getElementById("viewRecipe").scrollTo(0, 0);
+        document.getElementById("header").style.pointerEvents = "none";
+        document.getElementById("show").style.pointerEvents = "none";
+        document.getElementById("filters").style.pointerEvents = "none";
+        document.getElementById("search_bar").style.pointerEvents = "none";
+        document.getElementById("submit").style.pointerEvents = "none";
+        document.getElementById("addRecipe").style.pointerEvents = "none";
+        document.body.style.overflowY = "hidden";
+
+        document.getElementById("pageName").innerHTML = recipeName;
+
+        Array.from(allRecipes).forEach(currRecipe => {
+            if (currRecipe.name == recipeName) {
+                recipe = currRecipe;
+            }
+        })
+
+        document.getElementById("viewImage").src = recipe.img;
+        document.getElementById("viewSkill").innerHTML = "<b>Cooking Level:</b> " + recipe.skill;
+        document.getElementById("viewTime").innerHTML = "<b>Time:</b> " + recipe.time + " Minutes";
+        document.getElementById("viewServes").innerHTML = "<b>Serves:</b> " + recipe.serves;
+
+        let instructions = recipe.instructions;
+        if(instructions.length > 0) {
+            instructions = instructions.split("\n\n").join("<br><br>");
+            document.getElementById("viewInstructions").innerHTML = instructions;
+        } else {
+            document.getElementById("viewInstructions").innerHTML = "<b><em>No Instructions Provided</em></b>";
+        }
+
+        let dietaryInfo = "";
+        if (recipe.dietary.length > 0) {
+            recipe.dietary.forEach(diet => {
+                if (diet == "DF") {
+                    dietaryInfo = dietaryInfo + "<label><img src='./images/dairy.png' style='padding: 10px'>Dairy Free</label>";
+                } else if (diet == "GF") {
+                    dietaryInfo = dietaryInfo + "<label><img src='./images/gluten-free.png' style='padding: 10px'>Gluten Free</label>";
+                } else if (diet == "PF") {
+                    dietaryInfo = dietaryInfo + "<label><img src='./images/nut-free.png' style='padding: 10px'>Peanut Free</label>";
+                } else if (diet == "SF") {
+                    dietaryInfo = dietaryInfo + "<label><img src='./images/soy-free.png' style='padding: 10px'>Soy Free</label>";
+                } else if (diet == "SFF") {
+                    dietaryInfo = dietaryInfo + "<label><img src='./images/shellfish-free.png' style='padding: 10px'>Shellfish Free</label>";
+                } else if (diet == "Vegan") {
+                    dietaryInfo = dietaryInfo + "<label><img src='./images/vegan.png' style='padding: 10px'>Vegan</label>";
+                } else if (diet == "Vegetarian") {
+                    dietaryInfo = dietaryInfo + "<label><img src='./images/vegetarian.png' style='padding: 10px'>Vegetarian</label>";
+                }
+            })
+        } else {
+            dietaryInfo = "<b><em>No Dietary Info Provided</em></b>";
+        }
+
+        document.getElementById("viewDietaryInfo").innerHTML = dietaryInfo;
+
+        let inventory = Array.from(JSON.parse(localStorage.getItem("storage")));
+        let ingredients = "";
+        if (recipe.ingredients.length > 0) {
+            recipe.ingredients.forEach(ingredient => {
+                let itemInInventory = false;
+                let color = "rgb(255, 0, 0, 0.5)";
+                
+                for (let i = 0; i < inventory.length; i++) {
+                    let currItems = inventory[i].items;
+                    for (let x = 0; x < currItems.length; x++) {
+                        if (ingredient.name.toLowerCase() == currItems[x].item_name.toLowerCase()) {
+                            itemInInventory = true;
+                            break;
+                        }
+                    }
+                    if (itemInInventory) {
+                        color = "rgb(0, 255, 0, 0.5)";
+                        break;
+                    }
+                }
+                
+                if (ingredient.measurement != "N/A") {
+                    // <span style="background-color: green; opacity: 0.5;">
+                    // ingredients = ingredients + ingredient.amount + " " + ingredient.measurement + " " + ingredient.name + "<br>";
+                    ingredients = ingredients + '<span style="background:' + color + '; padding: 5px;">' 
+                        + ingredient.name + ": " + ingredient.amount + " " + ingredient.measurement + "</span><br>";
+                } else {
+                    // ingredients = ingredients + ingredient.amount + " " + ingredient.name + "<br>";
+                    ingredients = ingredients + '<span style="background:' + color + '; padding: 5px;">'
+                        + ingredient.name + ": " + ingredient.amount + "</span><br>";
+                }
+            })
+        } else {
+            ingredients = "<b><em>No Ingredients Provided</em></b>";
+        }
+
+        document.getElementById("viewIngredients").innerHTML = ingredients;
+    }
+
+</script>

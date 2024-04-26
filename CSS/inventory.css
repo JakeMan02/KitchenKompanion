@@ -1,0 +1,216 @@
+
+
+
+/* Set height of body and the document to 640x960px to fit mobile device */
+/* Set height of body and the document to 640x960px to fit mobile device */
+body, html {
+  max-height: 960px;
+  max-width: 640px;
+  font-family: roboto;
+  overflow-y:scroll;
+  background-color: white;
+  margin: 0 0 0 0;
+}
+
+#header {
+  width: 100%;
+  height: 120px;
+  display: inline-grid;
+  align-items: center;
+  grid-template-columns: 70px 500px 70px;
+  text-align: center;
+  background-color: #a251ff;
+  color: white;
+  box-shadow: lightslategrey 0px 0px 10px;
+  position: sticky;
+  top: 0px;
+  z-index: 2;
+}
+
+#header button {
+  color: white;
+  background-color: #a251ff;
+  border: 0;
+}
+
+#header h1 {
+  font-size: 45px;
+}
+
+#tabs {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 2;
+  position: fixed;
+  width: 50%;
+  height: 840px;
+}
+
+#tabs a {
+  width: 100%;
+  color: white;
+  font-size: 20px;
+  display: block;
+  font-size: 25px;
+  text-align: left;
+  text-decoration: none;
+  padding: 25px 15px;
+  opacity: 1;
+}
+
+  /* Style the navigation bar */
+.navbar {
+    width: 100%;
+    background-color: #555;
+    overflow: auto;
+  }
+  
+  /* Navbar links */
+  .navbar a {
+    float: left;
+    text-align: center;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Navbar links on mouse-over */
+  .navbar a:hover {
+    background-color: #000;
+  }
+  
+  /* Current/active navbar link */
+  .active {
+    background-color: #04AA6D;
+  }
+  
+  /* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
+  @media screen and (max-width: 500px) {
+    .navbar a {
+      float: none;
+      display: block;
+    }
+  }
+
+  /* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    font-family: roboto;
+    font-size:x-large;
+  }
+  
+  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+  .active, .accordion:hover {
+    background-color: #ccc;
+  }
+  
+  /* Style the accordion panel. Note: hidden by default */
+  .panel {
+    padding: 0 18px;
+    background-color: white;
+    display: none;
+    overflow: hidden;
+    font-size: 20px;
+  }
+
+  .accordion:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+  }
+  
+  .active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+  }
+
+
+#keyboard {
+    position: fixed; /* Fixed positioning relative to the viewport */
+    bottom: 0px;      /* Align to the bottom */
+    left: 0;        /* Align to the left */
+    width: 100%;    /* Let it span the full width of the viewport */
+    height: 30%;   /* Keep the aspect ratio of the image */
+    z-index: 1000;  /* Make sure it's above other content */
+}
+
+.button{
+  padding: 15px;
+  width: auto; /* Allow the button to size according to its content */
+  display: inline; /* Ensure it appears as a block-level element */
+  margin: 20px auto; /* Center the button horizontally with some margin at the top */
+  background-color: #a251ff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  border-radius: 50px; /* Fully rounded corners for a pill shape */
+  font-size: 18px;
+  font-weight: bold; /* Make the text bold */
+  text-align: center;
+}
+
+
+
+
+.feature{
+  
+  width: auto; /* Allow the button to size according to its content */
+  display: inline; /* Ensure it appears as a block-level element */
+  margin: 10px auto; /* Center the button horizontally with some margin at the top */
+  background-color: #a251ff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  border-radius: 50px; /* Fully rounded corners for a pill shape */
+  font-size: 18px;
+  font-weight: bold; /* Make the text bold */
+  text-align: center;
+
+}
+
+.send_info{
+  width: auto; /* Allow the button to size according to its content */
+  display: inline; /* Ensure it appears as a block-level element */
+  margin: 20px auto; /* Center the button horizontally with some margin at the top */
+  background-color: #6d49ef;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  border-radius: 50px; /* Fully rounded corners for a pill shape */
+  font-size: 18px;
+  font-weight: bold; /* Make the text bold */
+  text-align: center;
+}
+
+.send_info_delete{
+  width: auto; /* Allow the button to size according to its content */
+  display: inline; /* Ensure it appears as a block-level element */
+  margin: 20px auto; /* Center the button horizontally with some margin at the top */
+  background-color: #ee2c13;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  border-radius: 50px; /* Fully rounded corners for a pill shape */
+  font-size: 18px;
+  font-weight: bold; /* Make the text bold */
+  text-align: center;
+
+}
+
+
+
+

@@ -1,0 +1,21 @@
+This is the recipe info to add for the task scenario for adding a new recipe
+
+Name: Pudding Pie
+Image: pudding-pie.png
+Skill: Beginner
+Serves: 8
+Time: 20 mins
+Ingredients:
+    2 Jell-O Chocolate Pudding Packets
+    9 in. Pie Crust
+    1 8oz of Cool-Whip
+    1 1/4 cups Milk
+Filters:
+    Peanut Free
+    Soy Free
+    Shellfish Free
+Instructions:
+    Step 1: Combine Jell-O Chocolate Pudding, half (4 oz.) of cool whip, and milk into a large mixing bowl until fully combined
+    Step 2: Pour mixture into pie crust
+    Step 3: (Optional) Spread remaining cool-whip on top of pie
+    Step 4: Let sit in fridge for at least 2 hours before serving

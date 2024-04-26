@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Item</title>
+    <link rel="stylesheet" href="./CSS/addItem.css">
+</head>
+<body>
+    <img id="keyboard" src="./images/keyboard.jpeg" alt="Keyboard"  style="display: none" >
+    <div id="header">
+        <button onclick="menu()"><img src="./images/menu-icon.png" id="menu"></button>
+        <h1>Add Item</h1>
+        <a href="home.html"><img src="./images/home-icon.png" id="profile" height="50px"></a>
+    </div>
+
+    <div id="tabs">
+        <a href="./home.html">Home</a>
+        <a href="./inventory.html">Kitchen Inventory</a>
+        <a href="./shoppingList.html">Shopping List</a>
+        <a href="./expiringItems.html">Expiring Items</a>
+        <a href="./timer.html">Timer</a>
+        <a href="./profiles.html">Profiles</a>
+    </div>
+
+    <div class="side-panel">
+        <div class="add-item-container">
+            <h2>Add Item</h2>
+            <form id="add-item-form">
+                <label for="item-name">Item Name:</label>
+                <input type="text" id="item-name" placeholder="Enter item name" required>
+                <label for="item-type">Item Type:</label>
+<select id="item-type">
+    <option value="dairy-and-eggs">Dairy and Eggs</option>
+    <option value="meats-protein">Meats/Protein</option>
+    <option value="produce">Produce</option>
+</select>
+                <button type="submit">Add to List</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+                
+            const form = document.getElementById('add-item-form');
+
+            const itemNameInput = document.getElementById('item-name');
+            
+            // Show the keyboard when the input field is focused
+            itemNameInput.addEventListener('focus', showKeyboard);
+            // Hide the keyboard when the input field loses focus
+            itemNameInput.addEventListener('blur', hideKeyboard);
+        
+            function showKeyboard() {
+                console.log('showKeyboard was called'); // For debugging purposes
+                document.getElementById('keyboard').style.display = 'block';
+                document.body.style.marginBottom = '600px'; // Adjust if needed
+            }
+        
+            function hideKeyboard() {
+                document.getElementById('keyboard').style.display = 'none';
+                document.body.style.marginBottom = '0';
+            }
+            
+            form.addEventListener('submit', event => {
+                event.preventDefault();
+                const itemName = document.getElementById('item-name').value.trim();
+                const itemType = document.getElementById('item-type').value;
+
+
+
+                // Store the item in local storage
+                let shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || {};
+                if (!shoppingList[itemType]) {
+                    shoppingList[itemType] = [];
+                }
+                shoppingList[itemType].push(itemName);
+                localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+
+                window.location.href = './shoppingList.html';
+            });
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+  populateItemTypeDropdown();
+});
+
+
+
+function populateItemTypeDropdown() {
+  const dropdown = document.getElementById('item-type');
+      dropdown.innerHTML = `
+        <option value="">Select a category</option>
+        <option value="dairy-and-eggs">Dairy and Eggs</option>
+        <option value="meats-protein">Meats/Protein</option>
+        <option value="produce">Produce</option>
+    `;
+
+  const storedSections = JSON.parse(localStorage.getItem('sections')) || {};
+  for (const sectionId in storedSections) {
+    const optionElement = document.createElement('option');
+    optionElement.value = sectionId;
+    optionElement.textContent = storedSections[sectionId];
+    dropdown.appendChild(optionElement);
+  }
+}
+
+        
+        function menu() {
+            var x = document.getElementById("tabs");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+
+
+
+    </script>
+</body>
+</html>

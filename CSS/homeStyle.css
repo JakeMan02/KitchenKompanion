@@ -1,0 +1,121 @@
+/* Set height of body and the document to 640x960px to fit mobile device */
+body, html {
+  max-height: 960px;
+  max-width: 640px;
+  font-family: roboto;
+  margin: 0 0 0 0;
+  background-color: white;
+  overflow: hidden;
+}
+
+#grid-container {
+  display: grid;
+  grid-template-columns: auto auto; 
+  column-gap: 1px;
+  background-color: white;
+  width: 636px;
+  height: 100%;
+  padding-left: 4px;
+}
+
+div {
+  padding-bottom: 5px;
+}
+
+#header {
+  width: 100%;
+  height: 120px;
+  display: inline-grid;
+  align-items: center;
+  grid-template-columns: 70px 500px 70px;
+  text-align: center;
+  background-color: #a251ff;
+}
+
+#header button {
+  background-color: #a251ff;
+  border: 0;
+}
+
+#header h1 {
+  font-size: 45px;
+  color: white;
+}
+
+#tabs {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 2;
+  position: fixed;
+  width: 50%;
+  height: 840px;
+}
+
+#tabs a {
+  width: 100%;
+  color: white;
+  font-size: 20px;
+  display: block;
+  font-size: 25px;
+  text-align: left;
+  text-decoration: none;
+  padding: 25px 15px;
+  opacity: 1;
+}
+
+#shoppingList button{
+  width: 630px;
+  height: 160px;
+  border-radius: 12px;
+  border-width: 5px;
+  border-color: #a251ff;
+  background-color: white;
+  font-size: 35px;
+  text-align: center;
+  padding-top: 15px;
+}
+
+#timer button{
+  width: 630px;
+  height: 160px;
+  border-radius: 12px;
+  border-width: 5px;
+  border-color: #a251ff;
+  background-color: white;
+  font-size: 35px;
+  text-align: center;
+}
+
+#recipes button {
+  width: 630px;
+  height: 160px;
+  border-radius: 12px;
+  border-width: 5px;
+  border-color: #a251ff;
+  background-color: white;
+  font-size: 35px;
+  text-align: center;
+}
+
+#expItems button {
+  width: 630px;
+  height: 160px;
+  border-radius: 12px;
+  border-width: 5px;
+  border-color: #a251ff;
+  background-color: white;
+  font-size: 35px;
+  text-align: center;
+}
+
+#inventory button {
+  width: 630px;
+  height: 160px;
+  border-radius: 12px;
+  border-width: 5px;
+  border-color: #a251ff;
+  background-color: white;
+  color: black;
+  font-size: 35px;
+  text-align: center;
+}

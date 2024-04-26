@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Kitchen Kompanion</title>
+        <link rel="stylesheet" href="./CSS/homeStyle.css">
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    </head>
+    <body>
+        <div id="header">
+            <button onclick="menu()"><img src="./images/menu-icon.png" id="menu"></button>
+            <h1>Kitchen Kompanion</h1>
+            <a href="profiles.html"><img src="./images/user.png" id="profile" width="45px" height="50px"></a>
+        </div>
+
+        <div id="tabs">
+            <a href="./inventory.html">Kitchen Inventory</a>
+            <a href="./shoppingList.html">Shopping List</a>
+            <a href="./recipes.html">Recipes</a>
+            <a href="./expiringItems.html">Expiring Items</a>
+            <a href="./timer.html">Timer</a>
+            <a href="./profiles.html">Profile</a>
+        </div>
+        
+        <div id="grid-container" style="padding-top: 10px;">
+
+            <div id="inventory" style="grid-column: span 2;">
+                <a href="./inventory.html"><button>
+                    <strong>Kitchen Inventory</strong>
+                </button></a>
+            </div>
+            <div id="shoppingList">
+                <a href="./shoppingList.html"><button>
+                    <strong>Shopping List</strong>
+                </button></a>
+            </div>
+            <br>
+
+            <div id="recipes">
+                <a href="./recipes.html"><button>
+                    <strong>Recipes</strong>
+                </button></a>
+            </div>
+            <br>
+
+            <div id="expItems">
+                <a href="./expiringItems.html"><button>
+                    <strong>Expiring<br>Items</strong>
+                </button></a>
+            </div>
+            <br>
+            <div id="timer">
+                <a href="./timer.html"><button>
+                    <strong>Timer</strong>
+                </button></a>
+            </div>
+        </div>
+        <script>
+            class Recipe {
+                constructor(img, name, time, skill, serves, dietary, ingredients, isFav, instructions) {
+                    this.img = img;
+                    this.name = name;
+                    this.time = time;
+                    this.skill = skill;
+                    this.serves = serves;
+                    if (isFav) {
+                        this.html = '<div class=\"container\"><img onclick="viewRecipe(\'' + name + '\')" src=\"' + img + '\">'
+                                + '<a id="recipeHeader" onclick="viewRecipe(\'' + name + '\')">' + name + '</a><h4>'
+                                + time + ' Minutes | ' + skill + ' | Serves ' + serves
+                                + '</h4><a onclick="favorite(\'' + name + '\')"><img src="./images/favorited.png" id="favorite"></a>'
+                                + '<a onclick="editRecipe(\'' + name +'\')"><img src="./images/edit.png" id="edit"></a></div>';
+                    } else {
+                        this.html = '<div class=\"container\"><img onclick="viewRecipe(\'' + name + '\')" src=\"' + img + '\">'
+                                + '<a id="recipeHeader" onclick="viewRecipe(\'' + name + '\')">' + name + '</a><h4>'
+                                + time + ' Minutes | ' + skill + ' | Serves ' + serves
+                                + '</h4><a onclick="favorite(\'' + name + '\')"><img src="./images/favorite_button.png" id="favorite"></a>'
+                                + '<a onclick="editRecipe(\'' + name + '\')"><img src="./images/edit.png" id="edit"></a></div>';
+                    }
+                    this.dietary = dietary;
+                    this.ingredients = ingredients;
+                    this.isFav = isFav;
+                    this.instructions = instructions;
+                }
+            }
+
+            class Ingredient{
+                constructor(name, amount, measurement){
+                    this.name = name;
+                    this.amount = amount;
+                    this.measurement = measurement;
+                }
+            }
+
+            class Inventory{
+                constructor(container_name){
+                this.container_name = container_name;
+                this.items = [];
+                }
+
+                addItem(item){
+                this.items.push(item);
+                }
+            }
+
+            class Item{
+                constructor(item_name, item_quantity, item_expiration){
+                this.item_name = item_name;
+                this.item_quantity = item_quantity;
+                this.item_expiration = item_expiration;
+                }
+            }
+
+            // From https://www.w3schools.com/howto/howto_js_mobile_navbar.asp
+            function menu() {
+                var menuTabs = document.getElementById("tabs");
+                var pageAnchors = document.getElementById("grid-container");
+                if (menuTabs.style.display == "block") {
+                    menuTabs.style.display = "none";
+                    pageAnchors.style.pointerEvents = "auto";
+                } else {
+                    menuTabs.style.display = "block";
+                    pageAnchors.style.pointerEvents = "none";
+                }
+            }
+
+            window.onload = function() {
+                if(localStorage.getItem("Recipes") == null) {
+                    let recipes = [];
+                    recipes.push(new Recipe("images/veggie_burger.jpg", "Veggie Bean Burger", 60, "Beginner", 5, ["Vegetarian"], [], false, ""));
+                    recipes.push(new Recipe("images/beyond_burger.jpg", "Beyond Burger", 30, "Intermediate", 2, ["Vegetarian"], [], false, ""));
+                    recipes.push(new Recipe("images/ultimate_burger.jpg", "Ultimate BBQ Burger", 30, "Intermediate", 2, [], [], false, ""));
+                    recipes.push(new Recipe("images/taco-spaghetti.jpg", "Taco Spaghetti", 40, "Beginner", "4", [], [
+                        new Ingredient("Ground Beef", 1, "lb(s)"), new Ingredient("Yellow Onion", 1, "N/A"),
+                        new Ingredient("Garlic", 4, "clove(s)"), new Ingredient("Water", 4, "cup(s)"),
+                        new Ingredient("Diced Tomatoes", 1, "can(s)"), new Ingredient("Taco Seasoning", 1, "packet(s)"),
+                        new Ingredient("Spaghetti", 8, "oz"), new Ingredient("Velveeta or American Cheese", 4, "oz"),
+                        new Ingredient("Shredded Sharp Cheddar Cheese", 1, "cup(s)"), new Ingredient("Cilantro", "1/2", "cup(s)"),
+                        new Ingredient("(Optional) Sour Cream", "preference", "N/A")
+                    ], true, "Step 1: In a large pot over medium-high heat, cook ground beef, onion, and garlic, stirring occasionally, until beef is browned, 5 to 6 minutes. "
+                            + "Add water, tomatoes, and taco seasoning, then cover and bring to a boil."
+                            + "\n\nStep 2: Break spaghetti in half lengthwise and add to sauce. Reduce heat to medium, cover, and simmer until pasta is tender, 12 to 14 minutes."
+                            + "\n\nStep 3: Remove from heat and stir in Velveeta, cheddar, and cilantro until cheese is melted. Serve topped with more cilantro and sour cream, if using."));
+                    recipes.push(new Recipe("images/halloumi-salad.jpg", "Fried Halloumi Salad", 25, "Beginner", 4, ["GF"], [
+                        new Ingredient("Lemon Juice", 2, "tbsp"), new Ingredient("Extra-Virgin Olive Oil", "1/4", "cup(s)"),
+                        new Ingredient("Chopped Dill", 2, "tbsp"), new Ingredient("Chopped Mint", 2, "tbsp"),
+                        new Ingredient("Salt", "to taste", "N/A"), new Ingredient("Black Pepper", "to taste", "N/A"),
+                        new Ingredient("Canned Chikpeas", 1, "cup(s)"), new Ingredient("Small Head Fennel", 1, "N/A"),
+                        new Ingredient("Green Olives", "1/4", "cup(s)"), new Ingredient("Extra Virgin Olive Oil", 2, "tbsp"),
+                        new Ingredient("Halloumi", 8, "oz"), new Ingredient("Pita", 1, "N/A"),
+                        new Ingredient("Arugula", 2, "cup(s)"), new Ingredient("Medium Naval Orange", 1, "N/A"),
+                        new Ingredient("Avocado", "1/2", "N/A"), new Ingredient("Red Pepper Flakes", "to taste", "N/A")
+                    ], false, "Step 1: In a large bowl, whisk together all dressing ingredients and season to taste with salt and pepper."
+                            + "\n\nStep 2: Add chickpeas, fennel, and olives to bowl with dressing and toss to combine."
+                            + "\n\nStep 3: In a large skillet over medium heat, heat 1 tablespoon oil. Add halloumi and cook until charred and golden on both sides, about 4 to 6 minutes total. "
+                            + "Remove cheese to a large plate."
+                            + "\n\nStep 4: In the same skillet over medium heat, heat remaining oil. Add pita and toast until golden and crisp, about 4 minutes. Remove to plate with halloumi."
+                            + "\n\nStep 5: Add arugula, halloumi, and pita to bowl with chickpeas, fennel, and olives and toss to combine. "
+                            + "Remove peel and pit from avocado half if necessary and cut crosswise into thin slices."
+                            + "\n\nStep 6: Add orange segments and avocado slices and toss very gently until combined. Season to taste with salt, pepper, and red pepper flakes, and serve."));
+                    recipes.push(new Recipe("images/Lemon-Herb-Chicken.png", "Lemon Herb Chicken", 15, "Beginner", 2, ["DF", "SFF", "GF", "PF"], [
+                        new Ingredient("Chicken Breast", 2, "N/A"), new Ingredient("Lemon", 1, "N/A"),
+                        new Ingredient("Salt", "to taste", "N/A"), new Ingredient("Black Pepper", "to taste", "N/A"),
+                        new Ingredient("Olive Oil", 1, "tbsp"), new Ingredient("Dried Oregano", 1, "pinch"),
+                        new Ingredient("Parsley", 2, "sprig(s)")
+                    ], false, "Place chicken in a bowl; pour 1/2 of the lemon juice over chicken and season with salt.\n\n"
+                        + "Heat olive oil in a medium skillet over medium-low heat. Place chicken into hot oil. Add remaining lemon juice and oregano; "
+                        + "season with black pepper. Cook chicken until golden brown and the juices run clear, 5 to 10 minutes per side. "
+                        + "An instant-read thermometer inserted into the center should read at least 165 degrees F (74 degrees C).\n\n"
+                        + "Garnish chicken with parsley to serve."));
+                    recipes.push(new Recipe("images/pan-roasted-chicken-breasts.png", "Seared Chicken Breasts", 20, "Beginner", 4, ["SFF", "PF"], [
+                        new Ingredient("Boneless Chicken Breast Halves", 4, "N/A"), new Ingredient("Salt", "to taste", "N/A"),
+                        new Ingredient("Black Pepper", "to taste", "N/A"), new Ingredient("Olive Oil", 2, "tbsp"),
+                        new Ingredient("(Optional) Chopped Herbs (thyme, parsley, rosemary)", 1, "tbsp"), new Ingredient("Apple Cider Vinegar", "1/4", "cup(s)"),
+                        new Ingredient("Butter", 4, "tbsp"), new Ingredient("Chicken Broth (or water)", 1, "tbsp")
+                    ], true, "Step 1: Gather all ingredients"
+                            + "\n\nStep 2: Season chicken on both sides with salt and pepper."
+                            + "\n\nStep 3: Heat olive oil in a heavy skillet over medium-high heat until it starts to shimmer. "
+                            + "Place chicken breasts in the skillet. Sprinkle with fresh herbs. "
+                            + "Cook until the bottoms are well seared and golden brown, 5 to 6 minutes."
+                            + "\n\nStep 4: Flip chicken breasts over and continue cooking until an internal temperature of 150 degrees F (66 degrees C). About 5 minutes."
+                            + "\n\nStep 5: Add vinegar and butter to the pan with chicken. Shake the pan gently until butter melts "
+                            + "and the internal temperature of chicken reads at least 165 degrees F (74 degrees C), 2 to 3 minutes more."
+                            + "\n\nStep 6: Stir in chicken broth to thin sause."));
+                    recipes.push(new Recipe("images/goulash.png", "Goulash", 45, "Beginner", 4, ["Vegetarian"], [
+                        new Ingredient("Elbow Macaroni", "11/2", "box(es)"), new Ingredient("Ground Beef", 1, "lb(s)"),
+                        new Ingredient("Onion", "1/2", "N/A"), new Ingredient("Garlic", 3, "clove(s)"), new Ingredient("Worcestershire Sauce", 1, "tbsp"),
+                        new Ingredient("Tomato Sauce", 1, "can(s)"), new Ingredient("Petit Diced Tomatoes", 1, "can(s)"),
+                        new Ingredient("Italian Seasoning", "1 1/2", "tbsp"), new Ingredient("Salt", 2, "tsp"),
+                        new Ingredient("Black Pepper", 1/2, "tsp"), new Ingredient("Shredded Cheddar Cheese", 1, "cup(s)")
+                    ], true, "Step 1: Preheat oven to 3500 degrees."
+                            + "\n\nStep 2: Bring a large pot of water to boil. Cook macaroni for 3 minutes less than the box directions, then drain." 
+                            + "\n\nStep 3: Heat a large skillet over high heat. Add ground beef and onions to the pan. Break beef apart, cooking for 6-7 minutes until browned. Drain any fat."
+                            + "\n\nStep 4: Mix in garlic and cook until fragrant, about 1 minute."
+                            + "\n\nStep 5: Add in Worcestershire sauce, tomato sauce, and diced tomatoes. Mix until combined."
+                            + "\n\nStep 6: Stir in the Italian seasoning, salt, and pepper. Taste and adjust the seasonings."
+                            + "\n\nStep 7: Mix in cooked macaroni and cheddar cheese. "
+                            + "If your skillet is heat-safe, you can place in the oven for 20-25 minutes until the goulash is bubbly and the cheese is melted. "
+                            + "If the skillet is not heat-safe, transfer the goulash to a casserole dish and bake."))
+
+                    localStorage.setItem("Recipes", JSON.stringify(recipes));
+                }
+
+                if(localStorage.getItem("storage") == null){
+                    let storageContainers = [];
+                    let r = new Inventory("Refrigerator");
+                    r.addItem(new Item("chocolate", 4, 1));
+                    r.addItem(new Item("vanilla", 2, 4));
+                    r.addItem(new Item("Milk", "1 gallon", "3"));
+                    r.addItem(new Item("Chicken Breast", 2, "3"));
+                    r.addItem(new Item("Lemon", 1, 7));
+
+                    let spiceRack = new Inventory("Spice Rack");
+                    spiceRack.addItem(new Item("Salt", "1 shaker", "N/A"));
+                    spiceRack.addItem(new Item("Black Pepper", "1 shaker", "N/A"));
+                    spiceRack.addItem(new Item("Dried Oregano", "1 shaker", "N/A"));
+
+                    let pantry = new Inventory("Pantry");
+                    pantry.addItem(new Item("Olive Oil", "16 oz", "N/A"));
+
+                    storageContainers.push(r);
+                    storageContainers.push(new Inventory("Freezer"));
+                    storageContainers.push(pantry);
+                    storageContainers.push(spiceRack);
+
+                    localStorage.setItem("storage", JSON.stringify(storageContainers));
+
+                    let defaultStorage = ["Refrigerator", "Freezer", "Pantry"];
+
+                    localStorage.setItem("storage_name_only", JSON.stringify(defaultStorage));
+                }
+
+                if (localStorage.getItem("profile") == null) {
+                    var profileData = {
+                        name: "John Doe",
+                        email: "example@email.com",
+                        age: "27",
+                        gender: "male"
+                    };
+
+                    localStorage.setItem("profile", JSON.stringify(profileData));
+                    localStorage.setItem("preferences", JSON.stringify("vegetarian"));
+                    localStorage.setItem("restrictions", JSON.stringify(["nutFree"]));
+                }
+            };
+        </script>
+    </body>
+</html>

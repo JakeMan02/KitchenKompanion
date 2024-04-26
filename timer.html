@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <link rel="stylesheet" href="./CSS/timer.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+</head>
+<body>
+    <div id="header">
+        <button onclick="menu()"><img src="./images/menu-icon.png" id="menu"></button>
+        <h1>Timer</h1>
+        <a href="home.html"><img src="./images/home-icon.png" id="profile" height="50px"></a>
+    </div>
+
+    <div id="tabs">
+        <a href="./home.html">Home</a>
+        <a href="./inventory.html">Kitchen Inventory</a>
+        <a href="./shoppingList.html">Shopping List</a>
+        <a href="./recipes.html">Recipes</a>
+        <a href="./expiringItems.html">Expiring Items</a>
+        <a href="./profiles.html">Profile</a>
+    </div>
+
+
+    <div id="timer"></div>
+
+    <div id="interface">
+        <div class="timerDisplay">
+            <label for="hours">Hours:</label>
+            <select id="hours">
+                <option value="0" selected>0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+            </select>
+        </div>
+        <div class="timerDisplay">
+            <label for="minutes">Minutes:</label>
+            <select id="minutes">
+                <option value="0" selected>0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
+                <option value="36">36</option>
+                <option value="37">37</option>
+                <option value="38">38</option>
+                <option value="39">39</option>
+                <option value="40">40</option>
+                <option value="41">41</option>
+                <option value="42">42</option>
+                <option value="43">43</option>
+                <option value="44">44</option>
+                <option value="45">45</option>
+                <option value="46">46</option>
+                <option value="47">47</option>
+                <option value="48">48</option>
+                <option value="49">49</option>
+                <option value="50">50</option>
+                <option value="51">51</option>
+                <option value="52">52</option>
+                <option value="53">53</option>
+                <option value="54">54</option>
+                <option value="55">55</option>
+                <option value="56">56</option>
+                <option value="57">57</option>
+                <option value="58">58</option>
+                <option value="59">59</option>
+            </select>
+        </div>
+        <div class="timerDisplay">
+            <label for="seconds">Seconds:</label>
+            <select id="seconds">
+                <option value="0" selected>0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
+                <option value="36">36</option>
+                <option value="37">37</option>
+                <option value="38">38</option>
+                <option value="39">39</option>
+                <option value="40">40</option>
+                <option value="41">41</option>
+                <option value="42">42</option>
+                <option value="43">43</option>
+                <option value="44">44</option>
+                <option value="45">45</option>
+                <option value="46">46</option>
+                <option value="47">47</option>
+                <option value="48">48</option>
+                <option value="49">49</option>
+                <option value="50">50</option>
+                <option value="51">51</option>
+                <option value="52">52</option>
+                <option value="53">53</option>
+                <option value="54">54</option>
+                <option value="55">55</option>
+                <option value="56">56</option>
+                <option value="57">57</option>
+                <option value="58">58</option>
+                <option value="59">59</option>
+            </select>
+        </div>
+
+        <div id="buttons">
+            <button class="my-button" onclick="startTimer()" id="start">Start</button>
+            <button class="my-button" onclick="stopTimer()" id="stop">Stop</button>
+        </div>
+    </div>
+    
+    <script>
+        let timerInterval;
+        let hoursInput = document.getElementById('hours');
+        let minutesInput = document.getElementById('minutes');
+        let secondsInput = document.getElementById('seconds');
+        let timerDisplay = document.getElementById('timer');
+
+        function startTimer() {
+            let hours = parseInt(hoursInput.value);
+            let minutes = parseInt(minutesInput.value);
+            let seconds = parseInt(secondsInput.value);
+
+            let totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+            timerInterval = setInterval(() => {
+                if (totalSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.textContent = 'Timer finished!';
+                    return;
+                }
+
+                let remainingHours = Math.floor(totalSeconds / 3600);
+                let remainingMinutes = Math.floor((totalSeconds % 3600) / 60);
+                let remainingSeconds = totalSeconds % 60;
+
+                timerDisplay.textContent = `${remainingHours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+
+                totalSeconds--;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            timerDisplay.textContent = '00:00:00';
+        }
+
+        // From https://www.w3schools.com/howto/howto_js_mobile_navbar.asp
+        function menu() {
+            var menuTabs = document.getElementById("tabs");
+            var pageContent = document.getElementById("interface");
+            if (menuTabs.style.display == "block") {
+                menuTabs.style.display = "none";
+                pageContent.style.pointerEvents = "auto";
+            } else {
+                menuTabs.style.display = "block";
+                pageContent.style.pointerEvents = "none";
+            }
+        }
+    </script>
+</body>
+</html>

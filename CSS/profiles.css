@@ -1,0 +1,199 @@
+body, html {
+  max-height: 960px;
+  max-width: 640px;
+  font-family: roboto;
+  position: fixed;
+  margin: 0 0 0 0;
+  background-color: white;
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+#header {
+  width: 100%;
+  height: 120px;
+  display: inline-grid;
+  align-items: center;
+  grid-template-columns: 70px 500px 70px;
+  text-align: center;
+  background-color: #a251ff;
+  color: white;
+  box-shadow: lightslategrey 0px 0px 10px;
+}
+  
+#header button {
+  color: white;
+  background-color: #a251ff;
+  border: 0;
+}
+  
+#header h1 {
+  font-size: 45px;
+}
+
+#tabs {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 2;
+  position: fixed;
+  width: 50%;
+  height: 840px;
+}
+
+#tabs a {
+  width: 100%;
+  color: white;
+  font-size: 20px;
+  display: block;
+  font-size: 25px;
+  text-align: left;
+  text-decoration: none;
+  padding: 25px 15px;
+  opacity: 1;
+}
+
+#profilePhoto {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-pic {
+  width: 150px; 
+  height: auto;
+}
+
+#profileInfo {
+  display: flex;
+  margin-top: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+#name, #email, #age, #gender {
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  background-color: rgb(233, 233, 233);
+  border: none;
+  border-bottom: #a251ff 2px solid;
+  height: 50px;
+  width: 250px;
+  margin-bottom: 6px;
+}
+
+#age, #gender {
+  width: 254px;
+}
+
+#submit {
+  margin-top: 18px;
+  margin-bottom: 20px;
+  background-color: #a251ff;
+  color: white;
+  border: none;
+  height: 50px;
+  width: 100%;
+  font-size: 24px;
+  display: block;
+}
+
+#keyboard {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  width: 100%;
+}
+
+#foodInfo, h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+#foodForm input[type="radio"], #restrictionForm input[type="checkbox"] {
+  display: none;
+}
+
+#foodForm label, #restrictionForm label {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+#foodForm label img {
+  width: 50px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+#foodForm input[type="radio"]:checked + label, #restrictionForm input[type="checkbox"]:checked + label {
+  background-color: #ccc; /* Adjust as needed */
+}
+
+#foodForm input[type="submit"], #restrictionForm input[type="submit"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin-top: 18px;
+  background-color: #a251ff;
+  color: white;
+  border: none;
+  height: 50px;
+  font-size: 24px;
+}
+
+#restrictionForm input[type="submit"] {
+  margin-bottom: 70px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: center;
+}
+
+#popup {
+  font-size: 24px;
+  position: fixed;
+  top: 40%;
+  left: 36%;
+  padding: 5px;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-color: #a251ff;
+  border-width: 2px;
+  border-radius: 5%;
+}
+
+#popup button {
+  background-color: lavender;
+  color: #a251ff;
+  border: none;
+  font-size: 20px;
+}
+
+#popup p {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 50px;
+}

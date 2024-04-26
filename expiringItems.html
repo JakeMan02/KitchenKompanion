@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expiring Items Tracker</title>
+    <link rel="stylesheet" href="./CSS/expiringItems.css">
+
+    <div w3-include-html="inventory.html"></div>
+
+</head>
+<body>
+    <div id="header">
+        <button onclick="menu()"><img src="./images/menu-icon.png" id="menu"></button>
+        <h1>Expiring Items</h1>
+        <a href="home.html"><img src="./images/home-icon.png" id="profile" height="50px"></a>
+    </div>
+
+    <div id="tabs">
+        <a href="./home.html">Home</a>
+        <a href="./inventory.html">Kitchen Inventory</a>
+        <a href="./shoppingList.html">Shopping List</a>
+        <a href="./recipes.html">Recipes</a>
+        <a href="./timer.html">Timer</a>
+        <a href="./profiles.html">Profiles</a>
+    </div>
+
+    <div id="main_part">
+    <!-- Filter section added here, right below the header -->
+    <div id="filter-options">
+        <label for="expiry-filter">Show items expiring in:</label>
+        <select id="expiry-filter">
+            <option value="3">3 days</option>
+            <option value="7">7 days</option>
+            <option value="14">14 days</option>
+            <option value="more">More than 14 days</option>
+        </select>
+    </div>
+
+    <div id="app-container" class="app-container">
+        <ul id="expiringItemsList">
+            <!-- List items will be inserted here by JavaScript -->
+        </ul>
+    </div>
+</div>
+    <script>
+
+class Inventory{
+    constructor(container_name){
+      this.container_name = container_name;
+      this.items = [];
+    }
+
+    addItem(item){
+      this.items.push(item);
+    }
+}
+
+class Item{
+    constructor(item_name, item_quantity, item_expiration){
+      this.item_name = item_name;
+      this.item_quantity = item_quantity;
+      this.item_expiration = item_expiration;
+    }
+}
+
+
+
+function initialize(){
+
+if(localStorage.getItem("storage") == null){
+  let storageContainers = [];
+let r = new Inventory("Refrigerator");
+r.addItem(new Item("chocolate", 4, 1));
+r.addItem(new Item("vanilla", 2, 4));
+
+storageContainers.push(r);
+storageContainers.push(new Inventory("Freezer"));
+storageContainers.push(new Inventory("Pantry"));
+
+localStorage.setItem("storage", JSON.stringify(storageContainers));
+
+console.log(storageContainers);
+}
+
+getItems();
+
+}
+
+function getItems(){
+    let allStorage = [];
+    let itemsList = [];
+    let itemsListNameOnly = [];
+    
+    allStorage = JSON.parse(localStorage.getItem("storage"));
+
+    console.log(allStorage);
+    if(allStorage != null){
+    for(let i = 0; i < allStorage.length; i++){
+      let container = allStorage[i];
+
+      console.log('CONTAINER NAME: ' + container.container_name);
+      console.log('CONTAINER ITEMS: ');
+      container.items.forEach(i => console.log(i));
+
+      container.items.forEach(i => itemsList.push(i));
+      container.items.forEach(i => itemsListNameOnly.push(i.item_name));
+
+    }
+
+    console.log('ITEMS LIST');
+    itemsList.forEach(e => console.log(e));
+
+    localStorage.setItem("items", JSON.stringify(itemsList));
+    localStorage.setItem("items_name_only", JSON.stringify(itemsListNameOnly));
+
+    console.log('From localStorage (items): ' + localStorage.getItem("items"));
+    console.log('From localStorage2 (items_name_only): ' + localStorage.getItem("items_name_only"));
+        return true; 
+    }
+   
+
+
+        return false; 
+  }
+
+
+        let item_names = [];
+
+
+
+        initialize();
+
+     //   let result = getItems();
+
+
+
+        console.log(localStorage.getItem("items"));
+
+        let obtainedItemList = JSON.parse(localStorage.getItem("items")); 
+
+        console.log(obtainedItemList);
+
+      
+       // if(result){
+            obtainedItemList.forEach(i => i.item_expiration = parseInt( i.item_expiration));
+
+             // Sort items by expiry date
+        obtainedItemList.sort((a, b) => a.item_expiration - b.item_expiration);
+
+      //  }
+
+
+              const expiringItems = [
+            { name: "Milk", expiryDate: "2024-04-05" },
+            { name: "Eggs", expiryDate: "2024-04-12" },
+            { name: "Cheese", expiryDate: "2024-04-08" },
+            { name: "Butter", expiryDate: "2024-04-15" }
+        ];
+
+
+     
+       
+
+        function filterAndDisplayItems() {
+                let filteredItems; 
+        //    if(result){
+                const filterValue = document.getElementById('expiry-filter').value;
+                filteredItems = obtainedItemList.filter(item => {
+              /*  const today = new Date();
+                const expiryDate = new Date(item.expiryDate);
+                const diffDays = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24)); */ 
+                return filterValue === 'more' ? item.item_expiration > 14 : item.item_expiration <= filterValue;
+            });
+       //     }
+          
+            displayExpiringItems(filteredItems);
+        }
+
+        function displayExpiringItems(items) {
+
+    //        if(result){
+                
+                const itemList = document.getElementById('expiringItemsList');
+            itemList.innerHTML = ''; // Clear the list
+            items.forEach(item => {
+                const expiryDate = new Date(item.expiryDate);
+                const today = new Date();
+                const diffDays = item.item_expiration;
+                const listItem = document.createElement('li');
+                listItem.textContent = `${item.item_name} - Expires in ${diffDays} day(s)`;
+                itemList.appendChild(listItem);
+            });
+
+            items.forEach(i =>{ if(!item_names.includes(i.item_name)){
+                item_names.push(i.item_name);
+            }});
+
+
+
+         
+
+            console.log('ITEM NAMES IS: ' + item_names);
+
+    
+
+
+
+            
+
+         /*   }else{
+               document.getElementById("main_part").innerHTML = `NO ITEMS YET. Please go to 'Kitchen Inventory' to add items first.`;
+            } */
+            
+        }
+
+        document.getElementById('expiry-filter').addEventListener('change', filterAndDisplayItems);
+
+        // document.getElementById('menu-button').addEventListener('click', function() {
+        //     const tabs = document.getElementById('tabs');
+        //     tabs.classList.toggle('hidden');
+        // });
+
+        // Initialize the list on page load
+        document.addEventListener('DOMContentLoaded', filterAndDisplayItems);
+    </script>
+
+            <script>
+            // From https://www.w3schools.com/howto/howto_js_mobile_navbar.asp
+            function menu() {
+                var menuTabs = document.getElementById("tabs");
+                var filterOptions = document.getElementById("filter-options");
+                var appContainer = document.getElementById("app-container");
+                if (menuTabs.style.display == "block") {
+                    menuTabs.style.display = "none";
+                    filterOptions.style.pointerEvents = "auto";
+                    appContainer.style.pointerEvents = "auto";
+                } else {
+                    menuTabs.style.display = "block";
+                    filterOptions.style.pointerEvents = "none";
+                    appContainer.style.pointerEvents = "none";
+                }
+            }
+
+        
+        </script>
+</body>
+</html>

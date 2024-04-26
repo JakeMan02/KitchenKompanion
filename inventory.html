@@ -1,0 +1,841 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="CSS/inventory.css" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+    <!-- Arthur Liao -->
+    <title>Kitchen Inventory</title>
+</head>
+
+
+<body>
+
+  <img id="keyboard" src="./images/keyboard.jpeg" alt="Keyboard" style="display: none;">
+
+
+  <div id="header">
+      <button onclick="menu()"><img src="./images/menu-icon.png" id="menu"></button>
+      <h1>Kitchen Inventory</h1>
+      <a href="home.html"><img src="./images/home-icon.png" id="profile" height="50px"></a>
+  </div>
+
+  <div id="tabs">
+      <a href="./home.html">Home</a>
+      <a href="./shoppingList.html">Shopping List</a>
+      <a href="./recipes.html">Recipes</a>
+      <a href="./expiringItems.html">Expiring Items</a>
+      <a href="./timer.html">Timer</a>
+      <a href="./profiles.html">Profile</a>
+  </div>
+
+
+  <div id="result"></div>
+
+<div id="page_layout">
+
+  <div id="result2"></div>
+
+
+  <div id="result3" style="background-color: rgba(189, 189, 197, 0.293);">
+    <h3>Kitchen Inventory Management Menu: </h3>
+  Storage options: <button class="feature" onclick="addStorageQuestions()">Add Storage</button><br>
+  Item options: <button class="feature" onclick="addItemQuestions()">Add Item</button>
+  <button class="feature" onclick="editItemQuestions()">Edit Existing Item Info</button>
+  <button class="send_info_delete" onclick="deleteItemQuestions()">Delete Existing Item</button>
+
+
+  <!-- <button onclick="closeOut()">Close</button> -->
+
+  </div>
+
+  <div id="keyboard_area"></div>
+</div>
+
+  <div id="feedback"></div>
+   
+
+  
+</body>
+
+<script>
+
+
+  class Inventory{
+    constructor(container_name){
+      this.container_name = container_name;
+      this.items = [];
+    }
+
+    addItem(item){
+      this.items.push(item);
+    }
+  }
+
+  class Item{
+    constructor(item_name, item_quantity, item_expiration){
+      this.item_name = item_name;
+      this.item_quantity = item_quantity;
+      this.item_expiration = item_expiration;
+    }
+  }
+
+  function initialize(){
+
+    if(localStorage.getItem("storage") == null){
+      let storageContainers = [];
+  let r = new Inventory("Refrigerator");
+  r.addItem(new Item("chocolate milk", "2 gallons", 1));
+  r.addItem(new Item("whole milk", "1 gallon", 4));
+  r.addItem(new Item("potatoes", "20 potatoes", 30));
+  r.addItem(new Item("bagels", "12 bagels", 5));
+  r.addItem(new Item("bread", "1 slice", 3));
+  r.addItem(new Item("butter", "1 stick", 40));
+  r.addItem(new Item("eggs", "24 eggs", 14));
+
+
+  let f = new Inventory("Freezer");
+  f.addItem(new Item("popsicles", "12 sticks", 60));
+
+  let p = new Inventory("Pantry");
+  p.addItem(new Item("Olive Oil", "16 oz", "N/A"));
+  p.addItem(new Item("Rice", "30 lbs", "N/A"));
+
+
+  
+
+  let sR = new Inventory("Spice Rack");
+  sR.addItem(new Item("salt", "1 shaker", "N/A"));
+  sR.addItem(new Item("black pepper", "1 shaker", "N/A"));
+  sR.addItem(new Item("Dried Oregano", "1 shaker", "N/A"));
+
+
+  let c1 = new Inventory("Cabinet 1");
+  c1.addItem(new Item("ketchup", "1 bottle", "100"));
+  c1.addItem(new Item("mustard", "1 bottle", "156"));
+
+  storageContainers.push(r);
+  storageContainers.push(f);
+  storageContainers.push(p);
+  storageContainers.push(sR);
+  storageContainers.push(c1);
+
+  
+  localStorage.setItem("storage", JSON.stringify(storageContainers));
+
+  let defaultStorage = ["Refrigerator", "Freezer", "Pantry", "Spice Rack", "Cabinet 1"]; 
+
+  localStorage.setItem("storage_name_only", JSON.stringify(defaultStorage));
+
+  console.log(storageContainers);
+  console.log("STORAGE ARE: " + localStorage.getItem("storage"));
+  console.log('STORAGE NAMES IN ADD STORAGE: ' + localStorage.getItem("storage_name_only"));
+
+
+    }
+
+  }
+ 
+
+  initialize();
+
+  Display();
+
+ // addStorage();
+
+ getItems();
+
+
+  function Display(){
+
+    
+
+    let allStorage = [];
+    let text = ""; 
+        document.getElementById("result").innerHTML = "";
+
+    allStorage = JSON.parse(localStorage.getItem("storage"));
+
+   // console.log('First index: ' + allStorage[0].container_name);
+   /* allStorage[0].items.forEach(item => console.log("Name: " + item.item_name + " Expires in: " + item.item_expiration + 
+                                " Quantity: " + item.item_quantity));
+*/
+    let itemString = "";
+    let buildHTML = "";
+
+    for(let i = 0; i < allStorage.length; i++ ){
+      itemString = "";
+
+      let container = allStorage[i];
+
+
+      console.log("THIS IS " + container.container_name);
+      container.items.forEach(i => console.log(i));
+
+
+      container.items.forEach(item => itemString += `<ul>` + "Name: " + item.item_name + " ; Expires in: " + item.item_expiration + 
+                                " day(s) ; Quantity: " + item.item_quantity + `</ul>`);
+
+      buildHTML =`<button class="accordion">` + container.container_name + `</button>`;
+      buildHTML += `<div class="panel"><li>` + itemString + `</li></div>`;
+      
+   
+      document.getElementById("result").innerHTML += buildHTML;
+
+
+    }
+
+    makeStorageWork();
+
+    console.log('BUILD HTML IS: ' + document.getElementById("result").innerHTML);
+
+
+    return document.getElementById("result").innerHTML;
+
+    
+
+
+  }
+
+  function addStorage(itemToAdd){
+
+    document.getElementById("keyboard_area").innerHTML = "";
+
+
+    let item = document.getElementById("add_storage").value;
+
+    let s = JSON.parse(localStorage.getItem("storage")); 
+
+    let storage_names = JSON.parse(localStorage.getItem("storage_name_only"));
+
+    s.push(new Inventory(item));
+
+    storage_names.push(item);
+
+    localStorage.setItem("storage", JSON.stringify(s));
+
+    localStorage.setItem("storage_name_only", JSON.stringify(storage_names));
+
+    console.log('STORAGE IN ADD STORAGE: ' + localStorage.getItem("storage"));
+    console.log('STORAGE NAMES IN ADD STORAGE: ' + localStorage.getItem("storage_name_only"));
+
+
+    Display();
+
+    document.getElementById("result2").innerHTML = ``;
+
+    document.getElementById("feedback").innerHTML = "NEW STORAGE ADDED!";
+
+    getItems();
+
+    location.reload();
+
+
+
+
+
+
+  }
+
+  function showKeyboard() {
+                console.log('showKeyboard was called');
+                console.log(document.querySelector('#keyboard'));
+
+                document.getElementById("keyboard_area").innerHTML = 
+                 `<img id="keyboard" src="./images/keyboard.jpeg" alt="Keyboard" width=100% height="50%">`;
+
+            //    document.getElementById("add_item").addEventListener('focus', showKeyboard);
+              //  document.querySelector('#keyboard').style.display = 'block';
+                document.body.style.marginBottom = '600px'; 
+
+              
+  }
+
+function hideKeyboard() {
+  alert("HELLO");
+
+                
+}
+
+
+
+
+
+
+function callReload(){
+
+  
+
+
+  location.reload();
+
+
+ 
+}
+
+
+
+
+
+  function addItem(){
+
+
+    document.getElementById("keyboard_area").innerHTML = "";
+
+
+    let itemToAdd = document.getElementById("add_item").value;
+    let itemQuantity = document.getElementById("item_quantity").value; 
+    let daysLeft = document.getElementById("days_left").value ; 
+    let location = document.getElementById("select_box").value;
+
+    console.log('itemToAdd is : ' + itemToAdd);
+    console.log('item quantity is: ' + itemQuantity);
+    console.log('days left is: ' + daysLeft);
+
+    console.log('Location to add is : ' + location);
+
+    let allLocations = JSON.parse(localStorage.getItem("storage"));
+
+    for(let i = 0; i < allLocations.length; i++){
+      if(allLocations[i].container_name == location){
+        console.log("FOUND IT");
+        //allLocations[i].addItem(itemToAdd);
+        console.log(allLocations[i]);
+
+        allLocations[i].items.push(new Item(itemToAdd, itemQuantity, daysLeft));
+
+        localStorage.setItem("storage", JSON.stringify(allLocations));
+
+       
+
+      }
+
+    }
+
+      Display();
+
+      getItems();
+
+
+
+    console.log(localStorage.getItem("storage"));
+
+
+
+    callReload();
+
+    console.log("END HERE");
+    
+    document.getElementById("feedback").innerHTML = "ITEM ADDED!";
+    document.getElementById("result2").innerHTML = "";
+
+    
+
+
+
+/*
+      
+      if(localStorage.getItem("items") == null){
+
+        let result = [new Item(itemToAdd, itemQuantity, daysLeft)]; 
+
+        localStorage.setItem("items", JSON.stringify(result) );
+      }else{
+
+        let getOld = JSON.parse(localStorage.getItem("items"));
+
+        getOld.push(new Item(itemToAdd, itemQuantity, daysLeft));
+
+        localStorage.setItem("items", JSON.stringify(getOld));
+
+        console.log('HELLO IS: ' + localStorage.getItem("items"));
+
+      }
+
+      */
+      
+
+
+   
+
+  }
+
+  function getItems(){
+    let allStorage = [];
+    let itemsList = [];
+    let itemsListNameOnly = [];
+    
+    allStorage = JSON.parse(localStorage.getItem("storage"));
+
+    for(let i = 0; i < allStorage.length; i++){
+      let container = allStorage[i];
+
+      console.log('CONTAINER NAME: ' + container.container_name);
+      console.log('CONTAINER ITEMS: ');
+      container.items.forEach(i => console.log(i));
+
+      container.items.forEach(i => itemsList.push(i));
+      container.items.forEach(i => itemsListNameOnly.push(i.item_name));
+
+    }
+
+    console.log('ITEMS LIST');
+    itemsList.forEach(e => console.log(e));
+
+    localStorage.setItem("items", JSON.stringify(itemsList));
+    localStorage.setItem("items_name_only", JSON.stringify(itemsListNameOnly));
+
+    console.log('From localStorage (items): ' + localStorage.getItem("items"));
+    console.log('From localStorage2 (items_name_only): ' + localStorage.getItem("items_name_only"));
+
+
+   
+
+
+
+  }
+
+  function closeOut(){
+
+    console.log("CLOSE SELECTED");
+
+    document.getElementById("result").innerHTML = Display();
+    document.getElementById("result2").innerHTML = "";
+    document.getElementById("keyboard_area").innerHTML = "";
+
+
+    // Display();
+
+    makeStorageWork();
+
+  }
+
+
+  function addStorageQuestions(){
+
+    let text = Display();
+
+    console.log('TEXT IS: ' + text);
+
+    document.getElementById("result").innerHTML = `<p></p>
+
+    <button type="button" class="feature" onclick="closeOut()">Return to inventory page</button>
+    <button class="accordion">See current inventory</button><div class="panel">` + text + `</div>`;
+
+    makeStorageWork();
+
+    document.getElementById("result2").innerHTML =  `
+    <h3>Add New Storage Location: </h3>     
+   Name storage: <input type="text" id="add_storage" onclick="showKeyboard()" placeholder="Cabinet 1, Cabinet over Stove, etc." style="width: 300px;"><button type="submit" class="send_info" onclick="addStorage()">Submit Storage</button>
+   
+`;
+
+    getItems();
+
+
+
+
+  }
+
+  function addItemQuestions(){
+    document.getElementById("feedback").innerHTML = " ";
+
+    let text = Display();
+
+console.log('TEXT IS: ' + text);
+
+document.getElementById("result").innerHTML = `<p></p>
+<button type="button" class="feature" onclick="closeOut()">Return to inventory page</button>
+<button class="accordion">See current inventory</button><div class="panel">` + text + `</div>`;
+
+makeStorageWork();
+
+
+
+
+    document.getElementById("result2").innerHTML = `
+    <h3>Add Item: </h3>
+    <label for="select_box">Choose storage location:</label>`; 
+
+    var results = `<select id="select_box">`; 
+
+
+        console.log(`WHAT ARE YOUR ITEMS? ` + localStorage.getItem("storage_name_only"));
+var tempArray = JSON.parse(localStorage.getItem("storage_name_only"));
+for(var i = 0; i < tempArray.length; i++){
+
+  var s = tempArray[i]; 
+   
+results  += `<option value=\"` + s + `\">` + s + `</option>`;
+
+   console.log("RESULTS: " + results);
+  
+  
+
+}  
+
+results += `</select>`;
+
+    /*<select id="select_box">
+    <option value="Refrigerator">Refrigerator</option>
+    <option value="Freezer">Freezer</option>
+    <option value="Pantry">Pantry</option>
+    <option value="Spice_Rack">Spice Rack</option> */
+
+    document.getElementById("result2").innerHTML += results +  `</select>
+  <label for="add_item" >What do you want to add? </label>
+   <input type="text" id="add_item" onclick="showKeyboard()" placeholder="pizza, hash browns, etc.">
+   <p></p>
+    <label for="item_quantity">Enter quantity (and unit) for the item:  </label>
+   <input type="text" id="item_quantity" onclick="showKeyboard()" placeholder="5 boxes, 3 eggs, 1 carrot, etc." style="width: 200px;">
+   <p></p>
+    <label for="days_left" required>Enter number of days to expiration for item:  </label>
+   <input type="text" id="days_left" onclick="showKeyboard()" placeholder="1, 2, etc.">
+   <button type="button" class="send_info" onclick="addItem()" >Submit Item</button>
+   
+`;
+
+console.log('DOES EXIST: ' + document.getElementById('add_item').value);
+
+/*.addEventListener('focus', showKeyboard);
+           // document.getElementById('email').addEventListener('focus', showKeyboard);
+ document.getElementById('add_item').addEventListener('blur', hideKeyboard());
+          //  document.getElementById('email').addEventListener('blur', hideKeyboard);
+          */
+          
+
+          getItems();
+
+
+  }
+
+
+  function editItem(){
+    document.getElementById("keyboard_area").innerHTML = "";
+    document.getElementById("feedback").innerHTML = " ";
+
+
+let itemToEdit = document.getElementById("items").value;
+let newQuantity = document.getElementById("new_quantity").value; 
+let daysLeft = document.getElementById("new_expiration").value ; 
+
+console.log('itemToEdit is : ' + itemToEdit);
+console.log('item quantity is: ' + newQuantity);
+console.log('days left is: ' + daysLeft);
+
+    let result = JSON.parse(localStorage.getItem("storage"));
+
+    console.log('storage is: ' + result);
+
+     /* let itemsInCurr = currStorage.items; 
+      for(let i in itemsInCurr){
+          if(i.item_name == itemToEdit){
+            console.log("TRUE");
+          }else{
+            console.log("FALSE");
+          }
+      } */ 
+
+      for(var i = 0; i  < result.length; i++){
+        console.log(result[i]);
+
+        let temp = result[i];
+
+        temp.items.forEach(e => {if(e.item_name == itemToEdit){
+
+          console.log("TRUE");
+
+          e.item_quantity = newQuantity; 
+
+          e.item_expiration = daysLeft;
+        }}
+
+        
+      );
+
+      result[i] = temp; 
+
+    
+      }
+      console.log('2nd time: ' + result);
+
+      localStorage.setItem("storage", JSON.stringify(result));
+
+      console.log("DID STORAGE SAVE? " + localStorage.getItem("storage") );
+
+      console.log(JSON.parse(localStorage.getItem("items")));
+
+      let itemsFromStorage = JSON.parse(localStorage.getItem("items"));
+      
+      for(var i = 0; i < itemsFromStorage.length; i++){
+          if(itemsFromStorage[i].item_name == itemToEdit){
+            console.log("FOUND ITEM");
+            var temp = itemsFromStorage[i]; 
+
+            temp.item_quantity = newQuantity;
+            temp.item_expiration = daysLeft; 
+
+            itemsFromStorage[i] = temp;
+          }
+
+      }
+
+      localStorage.setItem("items", JSON.stringify(itemsFromStorage));
+
+      console.log('DID ITEMS SAVE? ' + localStorage.getItem("items"));
+
+
+
+
+      document.getElementById("feedback").innerHTML = "ITEM EDITED!";
+    document.getElementById("result2").innerHTML = "";
+
+    Display();
+
+    location.reload();
+
+
+  }
+
+  function editItemQuestions(){
+
+
+    
+    document.getElementById("feedback").innerHTML = " ";
+
+
+let text = Display();
+
+console.log('TEXT IS: ' + text);
+
+document.getElementById("result").innerHTML = `<p></p>
+<button type="button" class="feature" onclick="closeOut()">Return to inventory page</button>
+<button class="accordion">See current inventory</button><div class="panel">` + text + `</div>`;
+
+makeStorageWork();
+
+let tempArray = JSON.parse(localStorage.getItem("items"));
+console.log(localStorage.getItem("items"));
+
+console.log('TEMP ARRAY IS: ' + tempArray);
+// console.log('TEMP ARRAY NAME IS: ' + tempArray[0].item_name);
+
+
+
+
+document.getElementById("result2").innerHTML = `
+<h3>Edit Existing Item:</h3>  
+<label for="items">Select item to edit:</label>`; 
+
+  
+    
+   var results = `<select id="items">`; 
+  for(var i = 0; i < tempArray.length; i++){
+
+    var s = tempArray[i].item_name; 
+     
+  results  += `<option value=\"` + s + `\">` + s + `</option>`;
+
+     console.log("RESULTS: " + results);
+    
+    
+  
+  }  
+
+  results += `</select>`;
+
+  console.log("RESULTS A: " + results);
+
+  // console.log("SELECT IS: " + document.getElementById("items").value);
+ 
+
+  document.getElementById("result2").innerHTML  += results + `</select>` 
+   + `Update quantity: <input type="text" id="new_quantity" onclick="showKeyboard()" placeholder="` +  "1 cup, 1 box, etc. " + `"><p></p>
+   Update expiration: <input type="text" id="new_expiration" onclick="showKeyboard()" placeholder="` +  "1,2,3, etc. " + `"> 
+<button type="button" class="send_info" onclick="editItem()" >Edit Item</button>`; 
+
+
+
+/*.addEventListener('focus', showKeyboard);
+       // document.getElementById('email').addEventListener('focus', showKeyboard);
+document.getElementById('add_item').addEventListener('blur', hideKeyboard());
+      //  document.getElementById('email').addEventListener('blur', hideKeyboard);
+      */
+      
+
+      getItems();
+  }
+
+  function deleteItem(){
+
+      console.log("DELETE CALLED");
+
+      let toDelete = document.getElementById("items").value; 
+
+      console.log(`toDelete: ` + toDelete);
+
+      let containersFromStorage = JSON.parse(localStorage.getItem("storage"));
+
+      console.log(`Containers: ` + containersFromStorage);
+
+
+      for(var i = 0; i < containersFromStorage.length; i++){
+        console.log(`cs: ` + containersFromStorage[i].items);
+
+        let itemsInCurrStorage =  containersFromStorage[i].items; 
+
+        let tempItems = []; 
+        for(var j = 0; j < itemsInCurrStorage.length; j++){
+          if(itemsInCurrStorage[j].item_name != toDelete){
+          console.log("BYE");
+          tempItems.push(itemsInCurrStorage[j]);
+
+          /*
+          let tempItemsOnly = JSON.parse(localStorage.getItem("items")); 
+            
+          let tempItemsOnly2 = []; 
+          for(var k = 0; k < tempItemsOnly.length; k++){
+
+          } */ 
+          
+        }
+        }
+
+        containersFromStorage[i].items = tempItems; 
+        
+      }
+
+      localStorage.setItem("storage", JSON.stringify(containersFromStorage));
+
+      console.log(`AFTER DELETION: ` + localStorage.getItem("storage"));
+
+      document.getElementById("feedback").innerHTML = "ITEM DELETED!";
+    document.getElementById("result2").innerHTML = "";
+
+      Display();
+
+      getItems();
+
+
+
+  }
+
+  function deleteItemQuestions(){
+
+
+    
+document.getElementById("feedback").innerHTML = " ";
+
+
+let text = Display();
+
+console.log('TEXT IS: ' + text);
+
+document.getElementById("result").innerHTML = `<p></p>
+<button type="button" class="feature" onclick="closeOut()">Return to inventory page</button>
+<button class="accordion">See current inventory</button><div class="panel">` + text + `</div>`;
+
+makeStorageWork();
+
+let tempArray = JSON.parse(localStorage.getItem("items"));
+console.log(localStorage.getItem("items"));
+
+console.log('TEMP ARRAY IS: ' + tempArray);
+// console.log('TEMP ARRAY NAME IS: ' + tempArray[0].item_name);
+
+
+
+
+document.getElementById("result2").innerHTML = `
+<h3>Delete An Existing Item:</h3>  
+<label for="items">Select item to delete:</label>`; 
+
+
+
+var results = `<select id="items">`; 
+for(var i = 0; i < tempArray.length; i++){
+  var s = tempArray[i].item_name; 
+ 
+ results  += `<option value=\"` + s + `\">` + s + `</option>`;
+ 
+  console.log("RESULTS: " + results);
+}
+
+
+results += `</select>`;
+
+console.log("RESULTS A: " + results);
+
+// console.log("SELECT IS: " + document.getElementById("items").value);
+
+
+document.getElementById("result2").innerHTML  += results + `</select>
+<button type="button" class="send_info_delete" onclick="deleteItem()" >Delete Item</button>`; 
+
+
+
+/*.addEventListener('focus', showKeyboard);
+   // document.getElementById('email').addEventListener('focus', showKeyboard);
+document.getElementById('add_item').addEventListener('blur', hideKeyboard());
+  //  document.getElementById('email').addEventListener('blur', hideKeyboard);
+  */
+  
+
+  getItems();
+
+  Display();
+
+}
+
+  
+/* from https://www.w3schools.com/howto/howto_js_accordion.asp */ 
+  function makeStorageWork(){
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        /* Toggle between adding and removing the "active" class,
+        to highlight the button that controls the panel */
+        this.classList.toggle("active");
+
+        /* Toggle between hiding and showing the active panel */
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    }
+  }
+
+
+  // From https://www.w3schools.com/howto/howto_js_mobile_navbar.asp
+  function menu() {
+      var menuTabs = document.getElementById("tabs");
+      var result = document.getElementById("result");
+      var result2 = document.getElementById("result2");
+      var result3 = document.getElementById("result3");
+      if (menuTabs.style.display == "block") {
+          menuTabs.style.display = "none";
+          result.style.pointerEvents = "auto";
+          result2.style.pointerEvents = "auto";
+          result3.style.pointerEvents = "auto";
+      } else {
+          menuTabs.style.display = "block";
+          result.style.pointerEvents = "none";
+          result2.style.pointerEvents = "none";
+          result3.style.pointerEvents = "none";
+      }
+  }
+ 
+</script>
+
+
+
+</html>
